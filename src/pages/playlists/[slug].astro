@@ -1,0 +1,38 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const playlists = await getCollection('playlists');
+  return playlists.map(p => ({
+    params: { slug: p.slug },
+    props: { playlist: p }
+  }));
+}
+
+const { playlist } = Astro.props;
+const dateFmt = playlist.data.date.toLocaleDateString('fr-FR', {
+  day: '2-digit', month: 'long', year: 'numeric'
+});
+---
+<BaseLayout title={`${playlist.data.titre} · Playlist · The Dark Room`}>
+  <section class="container hero">
+    <a href="/playlists" class="back-link">Retour aux playlists</a>
+    <h1 class="hero-title">{playlist.data.titre.toUpperCase()}</h1>
+    <div class="mix-page-meta">
+      <span>{dateFmt}</span>
+      <span>{playlist.data.tracks.length} titres</span>
+    </div>
+
+    <ol style="list-style: none; counter-reset: track; margin-top: 2rem;">
+      {playlist.data.tracks.map((t, i) => (
+        <li style="font-family: monospace; font-size: 13px; color: #AAA; padding: 0.6rem 0; border-bottom: 1px solid var(--border); display: flex; gap: 1rem;">
+          <span style="color: var(--text-very-dim); width: 2.5rem;">
+            {String(i + 1).padStart(2, '0')}.
+          </span>
+          <span><strong style="color: var(--white); font-weight: 500;">{t.artiste}</strong> — {t.titre}</span>
+        </li>
+      ))}
+    </ol>
+  </section>
+</BaseLayout>

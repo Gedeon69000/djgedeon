@@ -1,0 +1,111 @@
+---
+import '../styles/global.css';
+import { getSiteSettings } from '../lib/settings';
+
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const site = await getSiteSettings();
+const { title, description } = Astro.props;
+
+const finalTitle = title || site.titreOnglet;
+const finalDescription = description || site.descriptionSeo;
+
+const pathname = Astro.url.pathname;
+const isActive = (path: string) => pathname === path || pathname.startsWith(path + '/');
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') || '';
+---
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={finalDescription} />
+  <title>{finalTitle}</title>
+  <link rel="icon" type="image/png" href={site.favicon} />
+  <meta property="og:title" content={finalTitle} />
+  <meta property="og:description" content={finalDescription} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={`${siteUrl}${pathname}`} />
+  <meta property="og:image" content={`${siteUrl}${site.imagePartage}`} />
+
+  <!-- Netlify Identity Widget : permet aux liens d'invitation/recovery d'ouvrir l'admin -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" is:inline></script>
+  <script is:inline>
+    // Si l'utilisateur arrive avec un token Netlify Identity dans l'URL,
+    // on le renvoie automatiquement vers /admin/ qui sait gérer ce token.
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", user => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    }
+  </script>
+  <style is:inline define:vars={{
+    siteAccent: site.couleurAccent,
+    siteBg: site.couleurFond,
+    siteText: site.couleurTexte,
+    sitePoliceTitres: site.policeTitres,
+    sitePoliceCorps: site.policeCorps
+  }}>
+    :root {
+      --accent: var(--siteAccent);
+      --bg: var(--siteBg);
+      --text: var(--siteText);
+      --font-display: var(--sitePoliceTitres);
+      --font-body: var(--sitePoliceCorps);
+    }
+    html, body { background: var(--bg) !important; color: var(--text); font-family: var(--font-body); }
+    .hero-title, .font-display { font-family: var(--font-display) !important; }
+    .live-tag, .live-dot { color: var(--accent); }
+    .live-dot { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+    .section-title::before, .back-link:hover, .site-footer a:hover,
+    .mix-card-number, .annonce-date, .mix-page-meta span::before,
+    .tracklist summary::before { color: var(--accent); }
+    .mix-card:hover { border-color: var(--accent); }
+    .live-line { background: linear-gradient(to right, var(--accent), transparent); }
+    .playlist-item:hover .playlist-name { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a href="/" class="site-logo">
+        <img src={site.logo} alt={site.nomSite} />
+      </a>
+      <nav class="site-nav">
+        <a href="/" class={pathname === '/' ? 'active' : ''}>{site.labelAccueil}</a>
+        <a href="/mixs" class={isActive('/mixs') ? 'active' : ''}>{site.labelMixs}</a>
+        <a href="/playlists" class={isActive('/playlists') ? 'active' : ''}>{site.labelMenuPlaylists}</a>
+        <a href="/annonces" class={isActive('/annonces') ? 'active' : ''}>{site.labelLive}</a>
+        <a href="/apropos" class={isActive('/apropos') ? 'active' : ''}>{site.labelApropos}</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <slot />
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>// {site.texteFooter}</span>
+      <div>
+        {site.lienHearthis && <a href={site.lienHearthis} aria-label="Hearthis.at">HEARTHIS</a>}
+        {site.lienSoundcloud && <a href={site.lienSoundcloud} aria-label="SoundCloud">SOUNDCLOUD</a>}
+        {site.lienMixcloud && <a href={site.lienMixcloud} aria-label="Mixcloud">MIXCLOUD</a>}
+        {site.lienInstagram && <a href={site.lienInstagram} aria-label="Instagram">INSTAGRAM</a>}
+        {site.lienFacebook && <a href={site.lienFacebook} aria-label="Facebook">FACEBOOK</a>}
+        {site.lienYoutube && <a href={site.lienYoutube} aria-label="YouTube">YOUTUBE</a>}
+        {site.afficherRss && <a href="/rss.xml" aria-label="RSS">RSS</a>}
+        <a href={`mailto:${site.emailContact}`} aria-label="Contact">MAIL</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

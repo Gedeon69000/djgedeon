@@ -1,0 +1,52 @@
+---
+export interface Props {
+  /**
+   * ID numérique Hearthis.at du mix (ex: 12415173)
+   * Tu le trouves dans le code embed fourni par Hearthis :
+   * https://hearthis.at/embed/12415173/transparent_black/...
+   *                          ^^^^^^^^
+   */
+  trackId: string | number;
+  /** Couleur d'accent du lecteur (hex sans #), défaut: rouge The Dark Room */
+  hcolor?: string;
+  /** Afficher la waveform au lieu des blocs */
+  waveform?: boolean;
+  /** Afficher la pochette */
+  cover?: boolean;
+}
+
+const {
+  trackId,
+  hcolor = 'FF3030',
+  waveform = true,
+  cover = false
+} = Astro.props;
+
+const params = new URLSearchParams({
+  hcolor,
+  color: '',
+  style: '2',
+  block_size: '2',
+  block_space: '2',
+  background: '1',
+  waveform: waveform ? '1' : '0',
+  cover: cover ? '1' : '0',
+  autoplay: '0',
+  css: ''
+});
+
+const src = `https://hearthis.at/embed/${trackId}/transparent_black/?${params.toString()}`;
+---
+<div class="hearthis-player">
+  <iframe
+    width="100%"
+    height="150"
+    src={src}
+    frameborder="0"
+    scrolling="no"
+    allow="autoplay"
+    allowtransparency="true"
+    loading="lazy"
+    title="Lecteur Hearthis.at"
+  ></iframe>
+</div>

@@ -1,0 +1,21 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Redirection HTTPS et www -> apex
+[[redirects]]
+  from = "https://www.djgedeon.com/*"
+  to = "https://djgedeon.com/:splat"
+  status = 301
+  force = true
+
+# Headers de sécurité
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"

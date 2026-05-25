@@ -1,0 +1,29 @@
+---
+export interface Props {
+  href: string;
+  numero: number;
+  titre: string;
+  date: Date;
+  duree: string;
+  cover?: string;
+}
+
+const { href, numero, titre, date, duree, cover } = Astro.props;
+
+const dateFmt = date.toLocaleDateString('fr-FR', {
+  day: '2-digit',
+  month: '2-digit'
+});
+
+const numStr = String(numero).padStart(3, '0');
+---
+<a href={href} class="mix-card">
+  <div class="mix-card-cover">
+    {cover ? <img src={cover} alt={titre} /> : <span style="font-size: 48px; color: #444;">◉</span>}
+    <span class="mix-card-number">#{numStr}</span>
+  </div>
+  <div class="mix-card-body">
+    <div class="mix-card-title">{titre}</div>
+    <div class="mix-card-meta">{dateFmt} · {duree.toUpperCase()}</div>
+  </div>
+</a>

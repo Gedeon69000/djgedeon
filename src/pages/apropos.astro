@@ -1,0 +1,20 @@
+---
+import { getEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const page = await getEntry('pages', 'apropos');
+if (!page) {
+  throw new Error('Page À propos introuvable');
+}
+const { Content } = await page.render();
+---
+<BaseLayout title={`${page.data.titre} · Dj Gedeon`}>
+  <section class="container hero">
+    <h1 class="hero-title">{page.data.titre.toUpperCase()}</h1>
+    {page.data.sousTitre && <p class="hero-meta">{page.data.sousTitre}</p>}
+
+    <div class="prose">
+      <Content />
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,114 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HearthisPlayer from '../components/HearthisPlayer.astro';
+import MixCard from '../components/MixCard.astro';
+import { getSiteSettings } from '../lib/settings';
+
+const site = await getSiteSettings();
+
+// Charger les contenus
+const mixs = await getCollection('mixs');
+const playlists = await getCollection('playlists');
+const annonces = await getCollection('annonces');
+
+// Trier par date décroissante
+const mixsSorted = mixs.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const dernier = mixsSorted[0];
+const autresMixs = mixsSorted.slice(1, 4);
+
+const playlistsSorted = playlists.sort((a, b) => b.data.date.getTime() - a.data.date.getTime()).slice(0, 4);
+const annoncesSorted = annonces.sort((a, b) => b.data.date.getTime() - a.data.date.getTime()).slice(0, 3);
+
+const dateFmt = (d: Date) => d.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+---
+<BaseLayout>
+  {dernier && (
+    <section class="container hero">
+      <div class="live-tag">
+        <span class="live-dot"></span>
+        <span>{site.labelDerniereEmission}</span>
+        <span class="live-line"></span>
+      </div>
+
+      <h1 class="hero-title">
+        SESSION {String(dernier.data.numero).padStart(3, '0')}
+        <span class="sub">— {dernier.data.titre.toUpperCase()}</span>
+      </h1>
+      <p class="hero-meta">
+        {dateFmt(dernier.data.date)} · {dernier.data.duree} · {dernier.data.genre}
+      </p>
+
+      <HearthisPlayer trackId={dernier.data.hearthisId} />
+
+      {dernier.data.tracklist && dernier.data.tracklist.length > 0 && (
+        <details class="tracklist">
+          <summary>Tracklist · {dernier.data.tracklist.length} morceaux</summary>
+          <ol>
+            {dernier.data.tracklist.map(t => (
+              <li><span>{t.artiste} — {t.titre}</span></li>
+            ))}
+          </ol>
+        </details>
+      )}
+
+      <p style="margin-top: 1.5rem;">
+        <a href={`/mixs/${dernier.slug}`} class="back-link" style="margin: 0;">
+          Voir la page complète →
+        </a>
+      </p>
+    </section>
+  )}
+
+  {autresMixs.length > 0 && (
+    <section class="container section">
+      <a href="/mixs" class="section-link">Voir tout →</a>
+      <h2 class="section-title">{site.labelArchives}</h2>
+      <div class="mix-grid">
+        {autresMixs.map(mix => (
+          <MixCard
+            href={`/mixs/${mix.slug}`}
+            numero={mix.data.numero}
+            titre={mix.data.titre}
+            date={mix.data.date}
+            duree={mix.data.duree}
+            cover={mix.data.cover}
+          />
+        ))}
+      </div>
+    </section>
+  )}
+
+  <section class="container section">
+    <div class="two-col">
+      <div>
+        <h2 class="section-title">{site.labelPlaylists}</h2>
+        {playlistsSorted.length === 0 ? (
+          <p style="color: var(--text-dim); font-size: 13px;">Bientôt.</p>
+        ) : (
+          playlistsSorted.map(p => (
+            <a href={`/playlists/${p.slug}`} class="playlist-item">
+              <span class="playlist-name">{p.data.titre}</span>
+              <span class="playlist-count">{p.data.tracks.length} titres</span>
+            </a>
+          ))
+        )}
+      </div>
+
+      <div>
+        <h2 class="section-title">{site.labelAnnonces}</h2>
+        {annoncesSorted.length === 0 ? (
+          <p style="color: var(--text-dim); font-size: 13px;">Rien à signaler.</p>
+        ) : (
+          annoncesSorted.map(a => (
+            <div class="annonce-item">
+              <span class="annonce-date">{a.data.dateEvenement || dateFmt(a.data.date)}</span>
+              <span class="annonce-title">{a.data.titre}</span>
+              <div class="annonce-body">{a.data.resume}</div>
+            </div>
+          ))
+        )}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

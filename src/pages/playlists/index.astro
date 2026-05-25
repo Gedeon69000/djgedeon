@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const playlists = (await getCollection('playlists')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+---
+<BaseLayout title="Playlists · The Dark Room">
+  <section class="container hero">
+    <h1 class="hero-title">PLAYLISTS</h1>
+    <p class="hero-meta">Sélections d'écoute</p>
+  </section>
+
+  <section class="container section" style="border-bottom: 0;">
+    {playlists.length === 0 ? (
+      <p style="color: var(--text-dim);">Aucune playlist pour le moment.</p>
+    ) : (
+      playlists.map(p => (
+        <a href={`/playlists/${p.slug}`} class="playlist-item">
+          <span class="playlist-name">{p.data.titre}</span>
+          <span class="playlist-count">{p.data.tracks.length} titres</span>
+        </a>
+      ))
+    )}
+  </section>
+</BaseLayout>

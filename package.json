@@ -1,0 +1,16 @@
+{
+  "name": "djgedeon",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "The Dark Room — site officiel de Dj Gedeon",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^4.16.0"
+  }
+}

@@ -1,0 +1,145 @@
+# Configuration Decap CMS pour Dj Gedeon
+
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+locale: 'fr'
+
+site_url: https://djgedeon.com
+display_url: https://djgedeon.com
+logo_url: https://djgedeon.com/images/gedeon-logo.png
+
+collections:
+
+  # ====== PARAMÈTRES DU SITE ======
+  - name: "settings"
+    label: "Paramètres du site"
+    description: "Modifie ici tout ce qui est commun à tout le site : logo, couleurs, textes, liens..."
+    delete: false
+    editor:
+      preview: false
+    files:
+      - name: "site"
+        label: "Paramètres généraux"
+        file: "src/content/settings/site.md"
+        fields:
+          # IDENTITÉ
+          - { label: "★ Nom du site", name: "nomSite", widget: "string", hint: "Affiché dans le footer et l'alt du logo" }
+          - { label: "★ Titre dans l'onglet du navigateur", name: "titreOnglet", widget: "string" }
+          - { label: "★ Description SEO", name: "descriptionSeo", widget: "text", hint: "Apparaît dans les résultats Google et lors du partage sur réseaux sociaux" }
+          - { label: "★ Logo du site", name: "logo", widget: "image", hint: "PNG transparent recommandé, hauteur ~80px" }
+          - { label: "★ Favicon (icône onglet)", name: "favicon", widget: "image", hint: "Format carré, 64x64px minimum" }
+          - { label: "★ Image de partage social", name: "imagePartage", widget: "image", hint: "Apparaît lors du partage. Format 1200x630px conseillé" }
+
+          # COULEURS
+          - { label: "🎨 Couleur d'accent", name: "couleurAccent", widget: "color", hint: "Boutons, surlignages. Actuel : #FF3030" }
+          - { label: "🎨 Couleur de fond", name: "couleurFond", widget: "color", hint: "Actuel : #0A0A0A (noir profond)" }
+          - { label: "🎨 Couleur du texte", name: "couleurTexte", widget: "color", hint: "Actuel : #E8E8E8 (blanc cassé)" }
+
+          # POLICES
+          - { label: "🔤 Police des titres", name: "policeTitres", widget: "string", hint: "Liste de polices séparées par des virgules. Ex: Impact, 'Arial Black', sans-serif" }
+          - { label: "🔤 Police du corps", name: "policeCorps", widget: "string", hint: "Ex: -apple-system, BlinkMacSystemFont, sans-serif" }
+
+          # LIBELLÉS
+          - { label: "📝 Titre 'Archives' (accueil)", name: "labelArchives", widget: "string" }
+          - { label: "📝 Titre 'Playlists' (accueil)", name: "labelPlaylists", widget: "string" }
+          - { label: "📝 Titre 'Annonces' (accueil)", name: "labelAnnonces", widget: "string" }
+          - { label: "📝 Étiquette 'Dernière émission'", name: "labelDerniereEmission", widget: "string" }
+
+          # NAVIGATION
+          - { label: "🧭 Menu : Accueil", name: "labelAccueil", widget: "string" }
+          - { label: "🧭 Menu : Mixs", name: "labelMixs", widget: "string" }
+          - { label: "🧭 Menu : Playlists", name: "labelMenuPlaylists", widget: "string" }
+          - { label: "🧭 Menu : Live/Annonces", name: "labelLive", widget: "string" }
+          - { label: "🧭 Menu : À propos", name: "labelApropos", widget: "string" }
+
+          # FOOTER
+          - { label: "📄 Texte du footer", name: "texteFooter", widget: "string", hint: "Ex: Dj Gedeon · Mions · est. 2024" }
+          - { label: "📄 Email de contact", name: "emailContact", widget: "string", hint: "Apparaît dans le lien MAIL du footer" }
+
+          # RÉSEAUX SOCIAUX
+          - { label: "🔗 Lien Hearthis.at", name: "lienHearthis", widget: "string", required: false, hint: "Laisse vide pour cacher le lien" }
+          - { label: "🔗 Lien SoundCloud", name: "lienSoundcloud", widget: "string", required: false }
+          - { label: "🔗 Lien Mixcloud", name: "lienMixcloud", widget: "string", required: false }
+          - { label: "🔗 Lien Instagram", name: "lienInstagram", widget: "string", required: false }
+          - { label: "🔗 Lien Facebook", name: "lienFacebook", widget: "string", required: false }
+          - { label: "🔗 Lien YouTube", name: "lienYoutube", widget: "string", required: false }
+          - { label: "🔗 Afficher lien RSS", name: "afficherRss", widget: "boolean", default: true }
+
+  # ====== PAGES STATIQUES ======
+  - name: "pages"
+    label: "Pages"
+    description: "Pages de contenu modifiables"
+    delete: false
+    files:
+      - name: "apropos"
+        label: "Page À propos"
+        file: "src/content/pages/apropos.md"
+        fields:
+          - { label: "Titre de la page", name: "titre", widget: "string" }
+          - { label: "Sous-titre (optionnel)", name: "sousTitre", widget: "string", required: false }
+          - { label: "Contenu", name: "body", widget: "markdown", hint: "Tu peux utiliser du markdown : ## pour les sous-titres, **gras**, [lien](url), etc." }
+
+  # ====== MIXS ======
+  - name: "mixs"
+    label: "Mixs"
+    label_singular: "Mix"
+    folder: "src/content/mixs"
+    create: true
+    slug: "session-{{numero}}"
+    summary: "Session {{numero}} — {{titre}} ({{year}}-{{month}}-{{day}})"
+    sortable_fields: ['numero', 'date', 'titre']
+    fields:
+      - { label: "Numéro de session", name: "numero", widget: "number", value_type: "int", min: 1 }
+      - { label: "Titre", name: "titre", widget: "string", hint: "Ex: Late Night Drift" }
+      - { label: "Date de publication", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD/MM/YYYY", time_format: false }
+      - { label: "Durée", name: "duree", widget: "string", hint: "Ex: 1h12 ou 58min" }
+      - { label: "Genre", name: "genre", widget: "string", hint: "Ex: Deep house, ambient" }
+      - { label: "ID Hearthis.at", name: "hearthisId", widget: "string", hint: "ID numérique du mix. Sur hearthis, clique Embed et récupère le numéro dans l'URL (hearthis.at/embed/12415173/... → 12415173)" }
+      - { label: "Cover (optionnelle)", name: "cover", widget: "image", required: false }
+      - label: "Tracklist"
+        name: "tracklist"
+        widget: "list"
+        required: false
+        summary: "{{fields.artiste}} — {{fields.titre}}"
+        fields:
+          - { label: "Artiste", name: "artiste", widget: "string" }
+          - { label: "Titre", name: "titre", widget: "string" }
+      - { label: "Description / notes (optionnel)", name: "body", widget: "markdown", required: false }
+
+  # ====== PLAYLISTS ======
+  - name: "playlists"
+    label: "Playlists"
+    label_singular: "Playlist"
+    folder: "src/content/playlists"
+    create: true
+    slug: "{{slug}}"
+    summary: "{{titre}} ({{year}}-{{month}}-{{day}})"
+    fields:
+      - { label: "Titre", name: "titre", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD/MM/YYYY", time_format: false }
+      - label: "Morceaux"
+        name: "tracks"
+        widget: "list"
+        summary: "{{fields.artiste}} — {{fields.titre}}"
+        fields:
+          - { label: "Artiste", name: "artiste", widget: "string" }
+          - { label: "Titre", name: "titre", widget: "string" }
+
+  # ====== ANNONCES ======
+  - name: "annonces"
+    label: "Annonces & Live"
+    label_singular: "Annonce"
+    folder: "src/content/annonces"
+    create: true
+    slug: "{{slug}}"
+    summary: "{{titre}} ({{year}}-{{month}}-{{day}})"
+    fields:
+      - { label: "Titre", name: "titre", widget: "string" }
+      - { label: "Date de publication", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD/MM/YYYY", time_format: false }
+      - { label: "Date événement (affichée)", name: "dateEvenement", widget: "string", required: false, hint: "Ex: 12.06 ou 07-09" }
+      - { label: "Résumé", name: "resume", widget: "text" }

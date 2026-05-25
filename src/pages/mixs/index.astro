@@ -1,0 +1,30 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MixCard from '../../components/MixCard.astro';
+
+const mixs = (await getCollection('mixs')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+---
+<BaseLayout title="Tous les mixs · The Dark Room">
+  <section class="container hero">
+    <h1 class="hero-title">TOUS LES MIXS</h1>
+    <p class="hero-meta">{mixs.length} sessions enregistrées</p>
+  </section>
+
+  <section class="container section" style="border-bottom: 0;">
+    <div class="mix-grid">
+      {mixs.map(mix => (
+        <MixCard
+          href={`/mixs/${mix.slug}`}
+          numero={mix.data.numero}
+          titre={mix.data.titre}
+          date={mix.data.date}
+          duree={mix.data.duree}
+          cover={mix.data.cover}
+        />
+      ))}
+    </div>
+  </section>
+</BaseLayout>

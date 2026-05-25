@@ -1,0 +1,30 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const annonces = (await getCollection('annonces')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+
+const dateFmt = (d: Date) => d.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+---
+<BaseLayout title="Live & annonces · The Dark Room">
+  <section class="container hero">
+    <h1 class="hero-title">LIVE & ANNONCES</h1>
+    <p class="hero-meta">Dates, événements, infos</p>
+  </section>
+
+  <section class="container section" style="border-bottom: 0;">
+    {annonces.length === 0 ? (
+      <p style="color: var(--text-dim);">Rien à signaler pour le moment.</p>
+    ) : (
+      annonces.map(a => (
+        <div class="annonce-item">
+          <span class="annonce-date">{a.data.dateEvenement || dateFmt(a.data.date)}</span>
+          <span class="annonce-title">{a.data.titre}</span>
+          <div class="annonce-body">{a.data.resume}</div>
+        </div>
+      ))
+    )}
+  </section>
+</BaseLayout>

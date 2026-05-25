@@ -1,0 +1,62 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HearthisPlayer from '../../components/HearthisPlayer.astro';
+
+export async function getStaticPaths() {
+  const mixs = await getCollection('mixs');
+  return mixs.map(mix => ({
+    params: { slug: mix.slug },
+    props: { mix }
+  }));
+}
+
+const { mix } = Astro.props;
+const { Content } = await mix.render();
+
+const dateFmt = mix.data.date.toLocaleDateString('fr-FR', {
+  day: '2-digit',
+  month: 'long',
+  year: 'numeric'
+});
+---
+<BaseLayout title={`Session ${mix.data.numero} — ${mix.data.titre} · The Dark Room`}>
+  <section class="container hero">
+    <a href="/mixs" class="back-link">Retour aux mixs</a>
+
+    <h1 class="hero-title">
+      SESSION {String(mix.data.numero).padStart(3, '0')}
+      <span class="sub">— {mix.data.titre.toUpperCase()}</span>
+    </h1>
+
+    <div class="mix-page-meta">
+      <span>{dateFmt}</span>
+      <span>{mix.data.duree}</span>
+      <span>{mix.data.genre}</span>
+    </div>
+
+    <HearthisPlayer trackId={mix.data.hearthisId} />
+
+    {mix.data.description && (
+      <div class="prose">
+        <Content />
+      </div>
+    )}
+
+    {mix.data.tracklist && mix.data.tracklist.length > 0 && (
+      <div style="margin-top: 2rem;">
+        <h2 class="section-title">Tracklist</h2>
+        <ol style="list-style: none; counter-reset: track;">
+          {mix.data.tracklist.map(t => (
+            <li style="counter-increment: track; font-family: monospace; font-size: 13px; color: #AAA; padding: 0.6rem 0; border-bottom: 1px solid var(--border); display: flex; gap: 1rem;">
+              <span style="color: var(--text-very-dim); width: 2.5rem;">
+                {String(mix.data.tracklist!.indexOf(t) + 1).padStart(2, '0')}.
+              </span>
+              <span><strong style="color: var(--white); font-weight: 500;">{t.artiste}</strong> — {t.titre}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    )}
+  </section>
+</BaseLayout>
