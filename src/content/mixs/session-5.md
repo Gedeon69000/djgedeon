@@ -5,4 +5,5 @@ date: 2026-04-27
 duree: "60"
 genre: House
 hearthisId: "14408560"
+cover: /images/uploads/darkroom-logo-black.png
 ---
