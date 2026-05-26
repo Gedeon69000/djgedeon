@@ -1,6 +1,6 @@
 ---
-titre: "Pause estivale"
-date: 2026-05-15
-dateEvenement: "07-09"
-resume: "Reprise des émissions en septembre. Quelques playlists pendant l'été."
+titre: Live sur Radio Isa 93,9 FM
+date: 2026-05-26
+dateEvenement: 29-095-2026
+resume: In The Mix sur Radio Isa 93,9 FM
 ---
