@@ -117,9 +117,13 @@ LIGNES_TOITURE = [
         ("Faîtage, rives, arêtiers (scellés ou à sec)", "ml", 60, 35, 70, "Non", 0.5, "Linéaire à métrer."),
         ("Zinguerie : gouttières, descentes, noues", "ml", 40, 40, 80, "Non", 0.5, "Zinc ou alu."),
     ]),
+    ("Façades (maison + grange)", [
+        ("Ravalement sur pisé : piquage, réparations, enduit chaux 3 couches", "m²", 400, 60, 120, "Non", 0.35, "Surface de façades à métrer (≈ 250 m² grange + 150 à 250 m² maison). Jamais d'enduit ciment sur le pisé."),
+        ("Encadrements, appuis, soubassement drainant (anti-remontées)", "forfait", 1, 2000, 6000, "Non", 0.4, ""),
+    ]),
     ("Charpente / sécurité", [
         ("Reprise ponctuelle de charpente + traitement insectes / champignons", "forfait", 1, 2000, 10000, "Non", 0.4, "Selon diagnostic ; reprise lourde non comprise."),
-        ("Échafaudage, protections, sécurité", "forfait", 1, 3000, 8000, "Non", 0.3, "Parfois inclus dans le devis du couvreur."),
+        ("Échafaudage, protections, sécurité (toiture + façades)", "forfait", 1, 4000, 10000, "Non", 0.3, "À mutualiser entre couvreur et façadier."),
     ]),
 ]
 
@@ -236,8 +240,8 @@ tt_rdc = feuille_budget(rs, "La Marinka — Budget estimatif travaux du rez-de-c
 
 # ------------------------------------------------------------ Toiture + option sarking
 ts = wb.create_sheet("Budget Toiture", 2)
-tt_toit = feuille_budget(ts, "La Marinka — Budget estimatif réfection de toiture (260 m² de tuiles)",
-                         LIGNES_TOITURE, 260, "TOTAL TOITURE TTC (sans sarking)")
+tt_toit = feuille_budget(ts, "La Marinka — Budget estimatif toiture (260 m²) et ravalement des façades",
+                         LIGNES_TOITURE, 260, "TOTAL TOITURE + FAÇADES TTC (sans sarking)")
 r = ts.max_row + 2
 ts.cell(r, 1, "OPTION SARKING").font = HEAD
 for j in range(1, 16):
@@ -292,7 +296,7 @@ for j, h in enumerate(hd, start=1):
     c.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
 src = [("Étage (4 chambres + 4 SdE + WC)", "'Budget étage'", tt_etage),
        ("Rez-de-chaussée (séjour, baie galandage)", "'Budget RDC'", tt_rdc),
-       ("Toiture 260 m² (réfection complète)", "'Budget Toiture'", tt_toit)]
+       ("Toiture 260 m² + ravalement des façades", "'Budget Toiture'", tt_toit)]
 for i, (lab, sh, row) in enumerate(src, start=4):
     sy.cell(i, 1, lab).font = BLACK; sy.cell(i, 1).border = BOX
     for j, L in enumerate(("G", "H", "K", "L", "N"), start=2):
