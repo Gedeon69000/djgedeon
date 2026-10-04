@@ -46,7 +46,6 @@ ps["A10"], ps["B10"], ps["C10"], ps["D10"] = "Poste", "Min €", "Max €", "Com
 for c in "ABCD":
     ps[f"{c}10"].font = HEAD; ps[f"{c}10"].fill = HEAD_FILL
 hors = [
-    ("Couverture / charpente (si à reprendre)", 15000, 40000, "À diagnostiquer en priorité."),
     ("Raccordements eau / électricité / assainissement individuel", 8000, 15000, "Selon raccordement existant de la grange."),
     ("Renfort du plancher / chape", 5000, 12000, "Si le plancher de l'étage est insuffisant."),
     ("Taxe d'aménagement + dossier changement de destination", 2000, 5000, "Selon taux communal et départemental."),
@@ -108,6 +107,25 @@ LIGNES_ETAGE = [
         ("Faïence murale SdE", "m²", 40, 70, 130, "Oui", 0.5, ""),
         ("Peinture murs + plafonds", "m²", 300, 20, 33, "Oui", 0.25, ""),
     ]),
+]
+
+LIGNES_TOITURE = [
+    ("Couverture (260 m²)", [
+        ("Dépose de la couverture existante + évacuation", "m²", 260, 15, 30, "Non", 0.3, ""),
+        ("Écran sous-toiture HPV + contre-liteaux + liteaux neufs", "m²", 260, 25, 45, "Non", 0.5, ""),
+        ("Tuiles neuves terre cuite, fourniture + pose", "m²", 260, 50, 90, "Non", 0.6, "Tuiles canal / anciennes : prendre le haut de fourchette ou plus."),
+        ("Faîtage, rives, arêtiers (scellés ou à sec)", "ml", 60, 35, 70, "Non", 0.5, "Linéaire à métrer."),
+        ("Zinguerie : gouttières, descentes, noues", "ml", 40, 40, 80, "Non", 0.5, "Zinc ou alu."),
+    ]),
+    ("Charpente / sécurité", [
+        ("Reprise ponctuelle de charpente + traitement insectes / champignons", "forfait", 1, 2000, 10000, "Non", 0.4, "Selon diagnostic ; reprise lourde non comprise."),
+        ("Échafaudage, protections, sécurité", "forfait", 1, 3000, 8000, "Non", 0.3, "Parfois inclus dans le devis du couvreur."),
+    ]),
+]
+
+OPTION_SARKING = [
+    ("Isolation sarking fibre de bois 160-200 mm + pare-pluie (sur chevrons)", "m²", 260, 80, 150, "Non", 0.55, "Charpente apparente à l'étage, R ≈ 4 à 5."),
+    ("Rehausse des rives et adaptation zinguerie à l'épaisseur d'isolant", "forfait", 1, 1500, 4000, "Non", 0.5, ""),
 ]
 
 LIGNES_RDC = [
@@ -216,34 +234,89 @@ rs = wb.create_sheet("Budget RDC", 1)
 tt_rdc = feuille_budget(rs, "La Marinka — Budget estimatif travaux du rez-de-chaussée (77 m²)",
                         LIGNES_RDC, 77, "TOTAL RDC TTC")
 
+# ------------------------------------------------------------ Toiture + option sarking
+ts = wb.create_sheet("Budget Toiture", 2)
+tt_toit = feuille_budget(ts, "La Marinka — Budget estimatif réfection de toiture (260 m² de tuiles)",
+                         LIGNES_TOITURE, 260, "TOTAL TOITURE TTC (sans sarking)")
+r = ts.max_row + 2
+ts.cell(r, 1, "OPTION SARKING").font = HEAD
+for j in range(1, 16):
+    ts.cell(r, j).fill = HEAD_FILL
+ts.cell(r, 2, "Isolation posée par l'extérieur pendant la réfection (remplace l'isolation intérieure des rampants de l'étage)").font = HEAD
+r += 1
+o_first = r
+for poste, unite, q, pmin, pmax, auto, mat, com in OPTION_SARKING:
+    for jj, v in {2: poste, 3: unite, 4: q, 5: pmin, 6: pmax, 9: auto, 10: mat, 15: com}.items():
+        ts.cell(r, jj, v)
+    for jj in (4, 5, 6, 9, 10):
+        ts.cell(r, jj).font = BLUE
+    ts.cell(r, 7, f"=D{r}*E{r}"); ts.cell(r, 8, f"=D{r}*F{r}")
+    ts.cell(r, 11, f'=IF(I{r}="Oui",G{r}*J{r},G{r})'); ts.cell(r, 12, f'=IF(I{r}="Oui",H{r}*J{r},H{r})')
+    ts.cell(r, 13).fill = YELLOW; ts.cell(r, 13).font = BLUE
+    ts.cell(r, 14, f"=IF(N(M{r})>0,M{r},(G{r}+H{r})/2)")
+    for jj in (5, 6, 7, 8, 11, 12, 13, 14):
+        ts.cell(r, jj).number_format = EUR
+    ts.cell(r, 10).number_format = PCT
+    for jj in range(1, 16):
+        ts.cell(r, jj).border = BOX
+        if ts.cell(r, jj).font != BLUE:
+            ts.cell(r, jj).font = BLACK if jj not in (4, 5, 6, 9, 10) else BLUE
+    r += 1
+o_last = r - 1
+# ligne d'isolation des rampants dans l'onglet étage (économisée si sarking)
+ramp = next(rr for rr in range(5, bs.max_row + 1) if str(bs.cell(rr, 2).value).startswith("Isolation rampants"))
+def ligne(label, formulas, bold=False, fill=None, font=None):
+    global r
+    ts.cell(r, 2, label).font = BOLD if bold else BLACK
+    for col, f in formulas.items():
+        c = ts.cell(r, col, f); c.number_format = EUR; c.font = font or (BOLD if bold else BLACK)
+    if fill:
+        for jj in range(1, 16):
+            ts.cell(r, jj).fill = fill
+    r += 1
+    return r - 1
+o_st = ligne("Sous-total option sarking", {c: f"=SUM({L}{o_first}:{L}{o_last})" for c, L in COLS.items()}, bold=True)
+o_eco = ligne("Économie : isolation intérieure des rampants supprimée (onglet étage)",
+              {c: f"=-'Budget étage'!{L}{ramp}" for c, L in COLS.items()}, font=GREEN)
+o_net = ligne("SURCOÛT NET OPTION SARKING TTC (imprévus + MOE inclus)",
+              {c: f"=({L}{o_st}+{L}{o_eco})*(1+Paramètres!$B$4+Paramètres!$B$5)" for c, L in COLS.items()},
+              bold=True, fill=TOT_FILL)
+ts.cell(r + 1, 2, "Le sarking garde la charpente apparente, libère quelques cm de hauteur sous rampant et facilite la pose étanche des Velux.").font = Font(name=F, italic=True, size=9)
+
 # ------------------------------------------------------------ Synthèse
 sy = wb.create_sheet("Synthèse", 0)
 sy["A1"] = "La Marinka — Synthèse du budget travaux (hors ameublement)"; sy["A1"].font = TITLE
-hd = ["Niveau", "Total min €", "Total max €", "Auto min €", "Auto max €", "Montant retenu €"]
+hd = ["Poste", "Total min €", "Total max €", "Auto min €", "Auto max €", "Montant retenu €"]
 for j, h in enumerate(hd, start=1):
     c = sy.cell(3, j, h); c.font = HEAD; c.fill = HEAD_FILL; c.border = BOX
     c.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
 src = [("Étage (4 chambres + 4 SdE + WC)", "'Budget étage'", tt_etage),
-       ("Rez-de-chaussée (séjour, baie galandage)", "'Budget RDC'", tt_rdc)]
+       ("Rez-de-chaussée (séjour, baie galandage)", "'Budget RDC'", tt_rdc),
+       ("Toiture 260 m² (réfection complète)", "'Budget Toiture'", tt_toit)]
 for i, (lab, sh, row) in enumerate(src, start=4):
-    sy.cell(i, 1, lab).font = BLACK
+    sy.cell(i, 1, lab).font = BLACK; sy.cell(i, 1).border = BOX
     for j, L in enumerate(("G", "H", "K", "L", "N"), start=2):
         c = sy.cell(i, j, f"={sh}!{L}{row}"); c.font = GREEN; c.number_format = EUR; c.border = BOX
-    sy.cell(i, 1).border = BOX
-sy.cell(6, 1, "TOTAL TRAVAUX TTC").font = BOLD
-for j in range(2, 7):
-    L = "ABCDEF"[j - 1]
-    c = sy.cell(6, j, f"=SUM({L}4:{L}5)"); c.font = BOLD; c.number_format = EUR
-for j in range(1, 7):
-    sy.cell(6, j).fill = TOT_FILL; sy.cell(6, j).border = BOX
-sy.cell(8, 1, "Postes hors budget (Paramètres)").font = BOLD
-sy.cell(8, 2, f"=Paramètres!B{HORS_TOT}").font = GREEN; sy.cell(8, 2).number_format = EUR
-sy.cell(8, 3, f"=Paramètres!C{HORS_TOT}").font = GREEN; sy.cell(8, 3).number_format = EUR
-sy.cell(9, 1, "Enveloppe globale (travaux + hors budget)").font = BOLD
-sy.cell(9, 2, "=B6+B8").font = BOLD; sy.cell(9, 2).number_format = EUR
-sy.cell(9, 3, "=C6+C8").font = BOLD; sy.cell(9, 3).number_format = EUR
-sy.cell(11, 1, "Ameublement non compris. Escalier compté une seule fois (onglet étage).").font = Font(name=F, italic=True, size=9)
-sy.column_dimensions["A"].width = 46
+
+def ligne_sy(rr, label, formulas, bold=True, fill=None, font=None):
+    sy.cell(rr, 1, label).font = BOLD if bold else BLACK
+    for j, f in formulas.items():
+        c = sy.cell(rr, j, f); c.number_format = EUR; c.font = font or (BOLD if bold else BLACK)
+    for j in range(1, 7):
+        sy.cell(rr, j).border = BOX
+        if fill:
+            sy.cell(rr, j).fill = fill
+
+LET = "ABCDEF"
+ligne_sy(7, "TOTAL TRAVAUX TTC — sans sarking", {j: f"=SUM({LET[j-1]}4:{LET[j-1]}6)" for j in range(2, 7)}, fill=TOT_FILL)
+ligne_sy(8, "Option sarking : surcoût net (onglet Toiture)",
+         {j: f"='Budget Toiture'!{L}{o_net}" for j, L in zip(range(2, 7), ("G", "H", "K", "L", "N"))}, bold=False, font=GREEN)
+ligne_sy(9, "TOTAL TRAVAUX TTC — avec sarking", {j: f"={LET[j-1]}7+{LET[j-1]}8" for j in range(2, 7)}, fill=TOT_FILL)
+ligne_sy(11, "Postes hors budget (Paramètres)", {2: f"=Paramètres!B{HORS_TOT}", 3: f"=Paramètres!C{HORS_TOT}"}, font=GREEN)
+ligne_sy(12, "Enveloppe globale sans sarking", {2: "=B7+B11", 3: "=C7+C11"})
+ligne_sy(13, "Enveloppe globale avec sarking", {2: "=B9+B11", 3: "=C9+C11"})
+sy.cell(15, 1, "Ameublement non compris. Escalier compté une seule fois (onglet étage). Prix TTC indicatifs, à remplacer par les devis.").font = Font(name=F, italic=True, size=9)
+sy.column_dimensions["A"].width = 50
 for L in "BCDEF":
     sy.column_dimensions[L].width = 16
 
