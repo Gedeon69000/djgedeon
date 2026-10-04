@@ -45,32 +45,48 @@ PORTES = [
 ]
 
 # Fenêtres : (façade, début, fin)
-FENETRES = [
-    ("N", 0.70, 1.90), ("N", 6.07, 7.27),
-    ("S", 1.10, 2.30), ("S", 6.55, 7.75),
-    ("W", 4.80, 5.30), ("W", 1.20, 2.20),
-    ("E", 4.80, 5.30), ("E", 3.92, 4.42), ("E", 3.08, 3.58),
+FENETRES = []   # pas de fenêtres en façade : éclairage uniquement par Velux
+
+# Velux (projection en plan) : (x0, y0, x1, y1, libellé)
+VELUX = [
+    (0.90, 6.95, 1.68, 7.70, "78×98"),   # Ch1
+    (6.29, 6.95, 7.07, 7.70, "78×98"),   # Ch2
+    (1.32, 0.30, 2.10, 1.05, "78×98"),   # Ch3
+    (6.77, 0.30, 7.55, 1.05, "78×98"),   # Ch4
+    (0.10, 5.80, 0.65, 6.40, "55×78"),   # SdE1
+    (7.32, 5.80, 7.87, 6.40, "55×78"),   # SdE2
+    (1.05, 2.10, 1.60, 2.70, "55×78"),   # SdE3
+    (7.30, 2.10, 7.85, 2.70, "55×78"),   # SdE4
+    (7.30, 4.08, 7.85, 4.58, "55×78"),   # WC
+    (4.90, 4.02, 5.45, 4.55, "55×78"),   # dégagement
 ]
+FAITAGE = IN / 2  # hypothèse : faîtage Est-Ouest au milieu
 
 PIECES = {  # nom: (polygone, surface, label_cote, label_amenagement, dims)
     "CHAMBRE 1": ([(0, 6.56), (1.67, 6.56), (1.67, 4.69), (3.95, 4.69), (3.95, 7.97), (0, 7.97)],
-                  9.8, (2.05, 7.20), (2.85, 5.62), "3,95 × 3,28"),
+                  9.8, (2.80, 6.35), (2.85, 5.62), "3,95 × 3,28"),
     "CHAMBRE 2": ([(4.02, 4.69), (6.30, 4.69), (6.30, 6.56), (7.97, 6.56), (7.97, 7.97), (4.02, 7.97)],
-                  9.8, (5.92, 7.20), (5.12, 5.62), "3,95 × 3,28"),
+                  9.8, (5.17, 6.35), (5.12, 5.62), "3,95 × 3,28"),
     "CHAMBRE 3": ([(0.97, 0), (4.44, 0), (4.44, 3.65), (2.64, 3.65), (2.64, 1.78), (0.97, 1.78)],
-                  9.5, (2.70, 0.95), (2.05, 1.50), "3,47 × 3,65"),
+                  9.5, (3.25, 1.20), (2.05, 1.50), "3,47 × 3,65"),
     "CHAMBRE 4": ([(4.51, 0), (7.97, 0), (7.97, 1.78), (6.30, 1.78), (6.30, 3.65), (4.51, 3.65)],
-                  9.5, (6.24, 0.95), (6.90, 1.50), "3,46 × 3,65"),
-    "SdE 1": ([(0, 4.69), (1.60, 4.69), (1.60, 6.49), (0, 6.49)], 2.9, (0.80, 5.75), None, "1,60 × 1,80"),
-    "SdE 2": ([(6.37, 4.69), (7.97, 4.69), (7.97, 6.49), (6.37, 6.49)], 2.9, (7.17, 5.75), None, "1,60 × 1,80"),
-    "SdE 3": ([(0.97, 1.85), (2.57, 1.85), (2.57, 3.65), (0.97, 3.65)], 2.9, (1.77, 2.75), None, "1,60 × 1,80"),
-    "SdE 4": ([(6.37, 1.85), (7.97, 1.85), (7.97, 3.65), (6.37, 3.65)], 2.9, (7.17, 2.75), None, "1,60 × 1,80"),
-    "WC": ([(6.52, 3.72), (7.97, 3.72), (7.97, 4.62), (6.52, 4.62)], 1.3, (7.55, 4.40), None, "1,45 × 0,90"),
-    "DÉGAGEMENT": ([(0, 3.50), (0.90, 3.50), (0.90, 3.72), (6.45, 3.72), (6.45, 4.62), (0, 4.62)],
-                   6.0, (2.60, 4.17), None, ""),
+                  9.5, (5.70, 1.20), (6.90, 1.50), "3,46 × 3,65"),
+    "SdE 1": ([(0, 4.69), (1.60, 4.69), (1.60, 6.49), (0, 6.49)], 2.9, (0.95, 5.45), None, "1,60 × 1,80"),
+    "SdE 2": ([(6.37, 4.69), (7.97, 4.69), (7.97, 6.49), (6.37, 6.49)], 2.9, (7.02, 5.45), None, "1,60 × 1,80"),
+    "SdE 3": ([(0.97, 1.85), (2.57, 1.85), (2.57, 3.65), (0.97, 3.65)], 2.9, (1.85, 3.35), None, "1,60 × 1,80"),
+    "SdE 4": ([(6.37, 1.85), (7.97, 1.85), (7.97, 3.65), (6.37, 3.65)], 2.9, (7.10, 3.35), None, "1,60 × 1,80"),
+    "WC": ([(6.52, 3.72), (7.97, 3.72), (7.97, 4.62), (6.52, 4.62)], 1.3, (6.95, 4.40), None, "1,45 × 0,90"),
+    "DÉGAGEMENT": ([(0, 3.65), (0.90, 3.65), (0.90, 3.72), (6.45, 3.72), (6.45, 4.62), (0, 4.62)],
+                   5.9, (4.00, 4.35), None, ""),
 }
 
-ESCALIER = (0.0, 0.0, 0.90, 3.50)   # emmarchement 0,90, 14 girons de 0,25
+# Escalier quart tournant bas : départ vers l'Ouest le long du mur Sud,
+# marches balancées dans l'angle Sud-Ouest, puis volée droite vers le Nord.
+# Lignes de nez de marche : (point côté mur, point côté jour)
+ESC_LIGNES = [((0.90, 0.0), (0.90, 0.90)), ((0.42, 0.0), (0.90, 0.98)), ((0.0, 0.0), (0.90, 1.10)),
+              ((0.0, 0.42), (0.90, 1.24)), ((0.0, 0.80), (0.90, 1.40)), ((0.0, 1.12), (0.90, 1.55)),
+              ((0.0, 1.42), (0.90, 1.70))]
+ESC_LIGNES += [((0.0, 1.81 + k * (3.65 - 1.81) / 7), (0.90, 1.81 + k * (3.65 - 1.81) / 7)) for k in range(8)]
 
 FONT = "Liberation Sans, Helvetica, Arial, sans-serif"
 
@@ -171,27 +187,49 @@ def fenetres(mode):
 
 
 def escalier(mode):
-    x0, y0, x1, y1 = ESCALIER
     out = []
     fill = "#ffffff" if mode == "cote" else "#d8b48a"
-    out.append(rect(x0, y0, x1, y1, f'fill="{fill}" stroke="#111" stroke-width="1"'))
-    n = 14
-    g = (y1 - y0) / n
-    for i in range(1, n):
-        out.append(line(x0, y0 + i * g, x1, y0 + i * g, 'stroke="#111" stroke-width="0.8"'))
-    for i in range(n):
-        out.append(text(x1 - 0.08, y0 + i * g + 0.07, str(i + 1), 7, anchor="end", fill="#666"))
+    out.append(rect(0, 0, 0.90, 3.65, f'fill="{fill}" stroke="#111" stroke-width="1"'))
+    for (a, b) in ESC_LIGNES[1:-1]:
+        out.append(line(a[0], a[1], b[0], b[1], 'stroke="#111" stroke-width="0.8"'))
+    for i in range(len(ESC_LIGNES) - 1):
+        (a0, b0), (a1, b1) = ESC_LIGNES[i], ESC_LIGNES[i + 1]
+        pts = [a0, b0, a1, b1]
+        cx = sum(p[0] for p in pts) / 4
+        cy = sum(p[1] for p in pts) / 4
+        if i >= 6:
+            cx = 0.80
+        out.append(text(cx, cy - 0.03, str(i + 1), 7, fill="#666"))
     # ligne de foulée + flèche de montée
-    xm = (x0 + x1) / 2 - 0.08
-    a, b = P(xm, y0 + 0.15), P(xm, y1 + 0.05)
+    a, c, d, b = P(0.86, 0.45), P(0.45, 0.45), P(0.45, 0.95), P(0.45, 3.60)
     out.append(f'<circle cx="{a[0]:.1f}" cy="{a[1]:.1f}" r="3.5" fill="#111"/>')
-    out.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" y2="{b[1] + 10:.1f}" stroke="#111" stroke-width="1.4"/>')
+    out.append(f'<path d="M{a[0]:.1f},{a[1]:.1f} Q{c[0]:.1f},{c[1]:.1f} {d[0]:.1f},{d[1]:.1f} L{b[0]:.1f},{b[1] + 10:.1f}" '
+               f'fill="none" stroke="#111" stroke-width="1.4"/>')
     out.append(f'<path d="M{b[0]:.1f},{b[1]:.1f} l-5,11 l10,0 Z" fill="#111"/>')
-    px, py = P(xm - 0.12, 1.75)
-    out.append(f'<text x="{px:.1f}" y="{py:.1f}" font-family="{FONT}" font-size="10.5" font-weight="bold" '
+    px, py = P(0.20, 2.55)
+    out.append(f'<text x="{px:.1f}" y="{py:.1f}" font-family="{FONT}" font-size="9.5" font-weight="bold" '
                f'text-anchor="middle" transform="rotate(-90 {px:.1f} {py:.1f})" fill="#111">'
-               f'ESCALIER  0,90 × 3,50 — 15 hauteurs</text>')
-    out.append(text(xm + 0.04, 3.30, "M", 10, "bold"))
+               f'ESCALIER ¼ TOURNANT BAS — 15 h</text>')
+    out.append(text(0.57, 3.40, "M", 10, "bold"))
+    return out
+
+
+def velux(mode):
+    out = []
+    for x0, y0, x1, y1, lib in VELUX:
+        st = 'fill="#dbe9f3" fill-opacity="0.35" stroke="#1f5f8b" stroke-width="1.1" stroke-dasharray="5 3"'
+        out.append(rect(x0, y0, x1, y1, st))
+        out.append(line(x0, y0, x1, y1, 'stroke="#1f5f8b" stroke-width="0.5" stroke-dasharray="3 3"'))
+        out.append(line(x0, y1, x1, y0, 'stroke="#1f5f8b" stroke-width="0.5" stroke-dasharray="3 3"'))
+        if mode == "cote":
+            out.append(text((x0 + x1) / 2, y0 - 0.12, f"V {lib}", 8, fill="#1f5f8b"))
+    # faîtage supposé
+    out.append(line(-0.45, FAITAGE, IN + 0.45, FAITAGE,
+                    'stroke="#1f5f8b" stroke-width="0.7" stroke-dasharray="14 4 2 4" opacity="0.7"'))
+    if mode == "cote":
+        out.append(text(0.05, FAITAGE + 0.05, "faîtage (hyp.)", 8, anchor="start", fill="#1f5f8b"))
+    else:
+        out.append(text(IN + 0.47, FAITAGE + 0.05, "faîtage (hyp.)", 8, anchor="start", fill="#1f5f8b"))
     return out
 
 
@@ -256,7 +294,7 @@ def cotations():
     chaine_h([e, .20, 3.95, .07, 3.95, .20], top - 60, top - 4, out)
     chaine_h([e, 8.37], top - 92, top - 4, out, total=True)
     # Ouest
-    chaine_v([e, .20, 3.50, .22, .90, .07, 1.80, .07, 1.41, .20], left - 30, left - 4, out)
+    chaine_v([e, .20, .90, 2.75, .07, .90, .07, 1.80, .07, 1.41, .20], left - 30, left - 4, out)
     chaine_v([e, .20, 3.65, .07, .90, .07, 3.28, .20], left - 60, left - 4, out)
     chaine_v([e, 8.37], left - 92, left - 4, out, total=True)
     # Est
@@ -264,7 +302,7 @@ def cotations():
     chaine_v([e, .20, 3.65, .07, .90, .07, 3.28, .20], right + 74, right + 4, out)
     chaine_v([e, 8.37], right + 106, right + 4, out, total=True)
     # cote intérieure du dégagement
-    y = 4.00
+    y = 3.80
     a, b = P(0.0, y), P(6.45, y)
     out.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" y2="{b[1]:.1f}" stroke="#777" stroke-width="0.6"/>')
     for p in (a, b):
@@ -429,7 +467,7 @@ def echelle_graphique(x, y):
 SURFACES = [
     ("Chambre 1", "9,8"), ("Chambre 2", "9,8"), ("Chambre 3", "9,5"), ("Chambre 4", "9,5"),
     ("Salle d'eau 1", "2,9"), ("Salle d'eau 2", "2,9"), ("Salle d'eau 3", "2,9"), ("Salle d'eau 4", "2,9"),
-    ("WC indépendant", "1,3"), ("Dégagement + palier", "6,0"), ("Trémie escalier", "3,2"),
+    ("WC indépendant", "1,3"), ("Dégagement + palier", "5,9"), ("Trémie escalier", "3,3"),
 ]
 
 
@@ -452,23 +490,21 @@ def panneau(mode, titre_plan):
     o.append(f'<line x1="{x0}" y1="{yy - 16}" x2="{x0 + 330}" y2="{yy - 16}" stroke="#111" stroke-width="1"/>')
     o.append(f'<text x="{x0 + 18}" y="{yy + 6}" font-family="{FONT}" font-size="15" font-weight="bold">NOTES</text>')
     notes = [
-        "Murs extérieurs 20 cm — cloisons 7 cm",
-        "(type placo 72/48 + isolant phonique).",
+        "Murs ext. 20 cm — cloisons 7 cm (placo 72/48).",
         "Cotes en mètres, intérieur brut de cloison.",
-        "Escalier droit le long du mur Ouest,",
-        "départ en bas (Sud) : emmarchement 0,90,",
-        "14 girons de 25 cm, 15 hauteurs ≈ 19 cm",
+        "Escalier ¼ tournant bas le long du mur Ouest :",
+        "départ côté Est le long du mur Sud, marches",
+        "balancées dans l'angle puis volée droite.",
+        "Emmarchement 0,90 — 15 hauteurs ≈ 19 cm",
         "(à recaler sur la hauteur d'étage réelle).",
-        "Nouvelle trémie 0,90 × 3,50 : reprise de",
-        "plancher → avis structure / BET.",
-        "Salles d'eau : douche 90 × 120 extra-plate,",
-        "vasque 80, sèche-serviettes, VMC hygro.",
-        "SdE 3 sans fenêtre : extraction VMC.",
-        "WC suspendu + lave-mains, fenêtre Est.",
-        "Gaine technique Est : SdE 2 + WC + SdE 4",
-        "regroupés (chute Ø100).",
-        "Fenêtres indicatives : à caler sur les",
-        "baies existantes.",
+        "Trémie 0,90 × 3,65 : avis structure / BET.",
+        "Éclairage uniquement par Velux (projection",
+        "en pointillés bleus). Faîtage E-O supposé.",
+        "Combles : zones sous 1,80 m hors Carrez,",
+        "à vérifier selon la hauteur sous rampant.",
+        "SdE : douche 90 × 120, vasque 80, VMC hygro.",
+        "WC suspendu + lave-mains, VMC.",
+        "Gaine Est : SdE 2 + WC + SdE 4 (chute Ø100).",
     ]
     yy += 28
     for n in notes:
@@ -485,7 +521,7 @@ def panneau(mode, titre_plan):
     o.append(f'<line x1="{x0}" y1="{cy + 112}" x2="{x0 + 330}" y2="{cy + 112}" stroke="#111"/>')
     o.append(f'<line x1="{x0 + 110}" y1="{cy + 112}" x2="{x0 + 110}" y2="{cy + 150}" stroke="#111"/>')
     o.append(f'<line x1="{x0 + 220}" y1="{cy + 112}" x2="{x0 + 220}" y2="{cy + 150}" stroke="#111"/>')
-    for i, (k, v) in enumerate([("ÉCHELLE", "1/40 (A3)"), ("DATE", "04/10/2026"), ("INDICE", "A — esquisse")]):
+    for i, (k, v) in enumerate([("ÉCHELLE", "1/40 (A3)"), ("DATE", "04/10/2026"), ("INDICE", "B — esquisse")]):
         o.append(f'<text x="{x0 + 10 + i * 110}" y="{cy + 126}" font-family="{FONT}" font-size="9" fill="#555">{k}</text>')
         o.append(f'<text x="{x0 + 10 + i * 110}" y="{cy + 143}" font-family="{FONT}" font-size="12" font-weight="bold">{v}</text>')
     return o
@@ -496,16 +532,15 @@ def legende(mode):
     x0, y = 1058, 746
     o.append(f'<line x1="1040" y1="{y - 14}" x2="1370" y2="{y - 14}" stroke="#111" stroke-width="1"/>')
     x = x0
-    items = [("hach", "Mur ext. conservé"), ("cl", "Cloison neuve 7 cm"), ("fen", "Fenêtre"), ("porte", "Porte (P = passage)")]
+    items = [("hach", "Mur ext. conservé"), ("cl", "Cloison neuve 7 cm"), ("fen", "Velux (projection)"), ("porte", "Porte (P = passage)")]
     for k, t in items:
         if k == "hach":
             o.append(f'<rect x="{x}" y="{y}" width="30" height="12" fill="{"url(#hachure)" if mode == "cote" else "#2f2f2f"}" stroke="#000"/>')
         elif k == "cl":
             o.append(f'<rect x="{x}" y="{y + 3}" width="30" height="6" fill="#555"/>')
         elif k == "fen":
-            o.append(f'<rect x="{x}" y="{y}" width="30" height="12" fill="#fff" stroke="#000"/>'
-                     f'<line x1="{x}" y1="{y + 4.5}" x2="{x + 30}" y2="{y + 4.5}" stroke="#000" stroke-width="0.8"/>'
-                     f'<line x1="{x}" y1="{y + 7.5}" x2="{x + 30}" y2="{y + 7.5}" stroke="#000" stroke-width="0.8"/>')
+            o.append(f'<rect x="{x}" y="{y - 2}" width="30" height="16" fill="#dbe9f3" stroke="#1f5f8b" stroke-dasharray="5 3"/>'
+                     f'<path d="M{x},{y - 2} L{x + 30},{y + 14} M{x},{y + 14} L{x + 30},{y - 2}" stroke="#1f5f8b" stroke-width="0.5" stroke-dasharray="3 3"/>')
         else:
             o.append(f'<line x1="{x}" y1="{y + 14}" x2="{x}" y2="{y - 6}" stroke="#111" stroke-width="2"/>'
                      f'<path d="M{x},{y - 6} A20,20 0 0 1 {x + 20},{y + 14}" fill="none" stroke="#333" stroke-dasharray="3 2"/>')
@@ -538,10 +573,10 @@ def plan(mode):
             sol[cut] = "#efe6d8"
     o += escalier(mode)
     o += murs(mode)
-    o += fenetres(mode)
     o += portes(mode, sol)
     if mode == "amenagement":
         o += mobilier()
+    o += velux(mode)
     # libellés
     for nom, (pts, surf, lc, la, dims) in PIECES.items():
         pos = lc if mode == "cote" else (la or lc)
@@ -560,7 +595,7 @@ def plan(mode):
         if dims and mode == "cote":
             o.append(text(x, y - 0.42, dims, 10, fill="#555"))
     if mode == "cote":
-        o.append(text(5.00, 4.05, "6,45", 9.5, fill="#444"))
+        o.append(text(4.30, 3.84, "6,45", 9.5, fill="#444"))
         o += cotations()
     else:
         # cotes globales simples
@@ -570,7 +605,7 @@ def plan(mode):
         chaine_h([-EXT, 8.37], bottom + 40, bottom + 4, out, total=True)
         chaine_v([-EXT, 8.37], left - 40, left - 4, out, total=True)
         o += out
-        o.append(text(0.45, -0.45, "Départ escalier (RDC)", 10, anchor="middle", fill="#444"))
+        o.append(text(0.95, -0.45, "← Départ escalier (accès côté Est au RDC)", 10, anchor="start", fill="#444"))
     o.append(nord(965, 90))
     o.append(echelle_graphique(150, 960 - 22))
     o += panneau(mode, titre)
