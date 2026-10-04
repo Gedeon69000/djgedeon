@@ -324,6 +324,209 @@ sy.column_dimensions["A"].width = 50
 for L in "BCDEF":
     sy.column_dimensions[L].width = 16
 
+# ------------------------------------------------------------ Estimation de revente
+ev = wb.create_sheet("Estimation revente", 1)
+ev.sheet_view.zoomScale = 90
+WRAP = Alignment(wrap_text=True, vertical="top")
+ITAL = Font(name=F, italic=True, size=9)
+H2 = Font(name=F, bold=True, size=12, color="5B4636")
+
+
+def entete(row, titres):
+    for j, h in enumerate(titres, start=1):
+        c = ev.cell(row, j, h); c.font = HEAD; c.fill = HEAD_FILL; c.border = BOX
+        c.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+    ev.row_dimensions[row].height = 30
+
+
+def ecrire(row, vals, fonts=None, fmts=None):
+    for j, v in enumerate(vals, start=1):
+        c = ev.cell(row, j, v); c.border = BOX; c.alignment = WRAP
+        c.font = (fonts or {}).get(j, BLACK)
+        if fmts and j in fmts:
+            c.number_format = fmts[j]
+
+
+ev["A1"] = "La Marinka — Estimation de la valeur de revente après travaux"; ev["A1"].font = TITLE
+ev["A2"] = ("139 impasse du Brézet, 38440 Sainte-Anne-sur-Gervonde. Estimation indicative (octobre 2026), établie à partir des "
+            "prix publiés et d'annonces ; à confirmer par des ventes réelles (DVF) et des avis de valeur d'agences locales.")
+ev["A2"].font = ITAL
+
+# --- 1. Hypothèses
+r = 4
+ev.cell(r, 1, "1. Hypothèses du bien").font = H2; r += 1
+entete(r, ["Paramètre", "Valeur", "Commentaire"]); r += 1
+HYP = {}
+for lab, val, fmt, com in [
+    ("Surface habitable finale (m²)", 232, "0", "90 m² maison + 72 m² RDC grange + 69 m² étage ; l'étage sous rampant peut descendre à 55-62 m² légaux."),
+    ("Terrain (m²)", 1700, "0", "Norme haute du secteur rural."),
+    ("Prix d'achat frais de notaire compris (€)", 200000, EUR, "Donnée fournie."),
+    ("Extérieurs hors budget travaux (€) : piscine, jacuzzi, pergola, paysager, irrigation", 85000, EUR, "Hypothèse centrale (60 à 110 k€) : non chiffrés dans les onglets travaux."),
+    ("Grange indépendante : surface utile (m²)", 500, "0", "≈ 300 m² au sol + 200 m² en R+1, toiture neuve, dalle béton. Non habitable."),
+]:
+    ecrire(r, [lab, val, com], fonts={2: BLUE}, fmts={2: fmt}); HYP[lab.split(" (")[0]] = r; r += 1
+R_SURF, R_ACHAT, R_EXT = HYP["Surface habitable finale"], HYP["Prix d'achat frais de notaire compris"], HYP["Extérieurs hors budget travaux"]
+
+# --- 2. Marché local
+r += 1
+ev.cell(r, 1, "2. Prix du marché local (maisons)").font = H2; r += 1
+entete(r, ["Commune", "€/m² maison", "Nature de la donnée"]); r += 1
+for com, prix, nat in [
+    ("Sainte-Anne-sur-Gervonde", "1 983 (DVF 2025, 6 ventes) à 2 286-2 458", "Ventes réelles / estimations agrégateurs ; tendance 12 mois en baisse"),
+    ("Châtonnay", "2 301-2 362", "Estimation"),
+    ("Saint-Jean-de-Bournay", "2 223-2 458", "Estimation ; pic 2 589 en 2022 puis repli"),
+    ("Meyrieu-les-Étangs", "2 321", "Estimation ; -12,6 % sur un an"),
+    ("Villeneuve-de-Marc", "2 333", "Estimation"),
+    ("Savas-Mépin", "2 504", "Estimation"),
+    ("Artas", "2 742", "Estimation"),
+    ("Beauvoir-de-Marc", "2 952", "Estimation ; commune plus proche de Lyon"),
+    ("Grandes maisons vendues à Saint-Jean-de-Bournay (202-235 m²)", "1 213-1 906", "Ventes réelles : forte décote au m² des grandes surfaces"),
+]:
+    ecrire(r, [com, prix, nat]); r += 1
+
+# --- 3. Comparables
+r += 1
+ev.cell(r, 1, "3. Biens comparables").font = H2; r += 1
+entete(r, ["Commune", "Habitable", "Terrain", "Dépendances", "Piscine", "État", "Statut", "Prix €", "€/m²", "Comparabilité"]); r += 1
+for row in [
+    ("Saint-Jean-de-Bournay", "293 m², 6 ch.", "4 800 m²", "n.c.", "Oui", "Bon (présumé)", "Affiché", 580000, 1980, "Élevée : plafond affiché du secteur"),
+    ("Saint-Jean-de-Bournay", "169 m², 6 ch.", "2 513 m²", "n.c.", "Oui", "Standard", "Affiché", 383000, 2266, "Moyenne (plus petit)"),
+    ("Beauvoir-de-Marc", "n.c.", "1 514 m²", "n.c.", "Oui (creusée)", "n.c.", "Affiché", 502000, None, "Moyenne (commune plus chère)"),
+    ("Collines dauphinoises (Safer)", "≈ 250 m², pisé", "1,9 ha", "Bâtiment agricole pisé aménagé", "n.c.", "Rénové", "Affiché HFS", 570000, 2280, "Moyenne à élevée (pisé + grande dépendance)"),
+    ("Secteur Vienne (3 min A7)", "220 m², 6 ch.", "1 125 m²", "n.c.", "Oui", "Pierre, rénové", "Affiché", 630000, 2864, "Faible à moyenne (emplacement supérieur)"),
+    ("Châtonnay", "≈ 300 m²", "1 000 m²", "n.c.", "Oui", "Tout à rénover", "Affiché", 275000, 917, "Faible (illustre la décote travaux)"),
+    ("Saint-Jean-de-Bournay", "202 m²", "n.c.", "n.c.", "n.c.", "n.c.", "Vendu", 385000, 1906, "Moyenne (vente réelle)"),
+    ("Lieudieu", "300 m², 6 ch.", "9 702 m²", "Domaine", "n.c.", "Exception", "Affiché", 1290000, 4300, "Très faible (hors norme)"),
+    ("Satolas (Nord-Isère) — dépendance seule", "—", "—", "Hangars 2 680 m²", "—", "—", "Affiché", 230000, 86, "Référence grange"),
+    ("Isère — dépendance seule", "—", "—", "Grange 727 m²", "—", "—", "Affiché", 120000, 165, "Référence grange"),
+]:
+    ecrire(r, list(row), fmts={8: EUR, 9: '#,##0 "€/m²";;"n.c."'}); r += 1
+ev.cell(r, 1, "Aucune vente réelle documentée > 500 000 € dans la commune ni dans les communes limitrophes.").font = ITAL; r += 1
+
+# --- 4. Construction de la valeur
+r += 1
+ev.cell(r, 1, "4. Construction de la valeur (approche par composantes)").font = H2; r += 1
+entete(r, ["Composante", "Bas €", "Central €", "Haut €", "Justification"]); r += 1
+c0 = r
+for lab, lo, mid, hi, why in [
+    ("Maison rénovée ≈ 230 m² (hors extérieurs)", 450000, 485000, 530000, "2 050-2 350 €/m² : grande maison de caractère rénovée, décote des grandes surfaces."),
+    ("Piscine enterrée 3 × 5 m", 15000, 20000, 25000, "Atout réel mais perçu aussi comme une charge d'entretien."),
+    ("Pergola bioclimatique + espace repas", 5000, 7500, 10000, ""),
+    ("Jacuzzi, pétanque, brasero, barbecue", 0, 2500, 5000, "Équipements, pas de valeur foncière."),
+    ("Calme absolu (impasse de 3 maisons)", 10000, 15000, 20000, "Prime réelle mais fréquente en secteur rural."),
+    ("Puits fonctionnel + irrigation du jardin", 5000, 7500, 10000, "Utile sur 1 700 m² ; usage limitable par arrêtés sécheresse."),
+    ("Façades neuves (enduit chaux)", 10000, 12500, 15000, "Évite la décote « ravalement à prévoir »."),
+    ("Grange indépendante ≈ 500 m² utiles", 40000, 65000, 100000, "80-200 €/m² utile ; acheteurs ciblés (collectionneur, artisan)."),
+    ("Ajustement plafond de marché local / délai", -25000, -30000, -66000, "Bien au sommet du marché local : peu d'acheteurs, négociation 5-10 %."),
+]:
+    ecrire(r, [lab, lo, mid, hi, why], fonts={2: BLUE, 3: BLUE, 4: BLUE}, fmts={2: EUR, 3: EUR, 4: EUR}); r += 1
+c1 = r - 1
+ecrire(r, ["VALEUR ESTIMÉE", f"=SUM(B{c0}:B{c1})", f"=SUM(C{c0}:C{c1})", f"=SUM(D{c0}:D{c1})", "Bas ≈ vente rapide ; central = valeur retenue ; haut = annonce ambitieuse."],
+       fonts={1: BOLD, 2: BOLD, 3: BOLD, 4: BOLD}, fmts={2: EUR, 3: EUR, 4: EUR})
+for j in range(1, 6):
+    ev.cell(r, j).fill = TOT_FILL
+R_VAL = r; r += 1
+ecrire(r, ["Option non comprise : grange identifiée « changement de destination » au PLUi", 0, 0, 50000,
+           "À ne compter que si confirmé en mairie (PLUi Région Saint-Jeannaise + avis CDPENAF en zone A)."],
+       fonts={2: BLUE, 3: BLUE, 4: BLUE}, fmts={2: EUR, 3: EUR, 4: EUR}); r += 1
+
+# --- 5. Scénarios
+r += 1
+ev.cell(r, 1, "5. Scénarios de vente").font = H2; r += 1
+entete(r, ["Scénario", "Prix €", "€/m² habitable", "€/m² hors grange", "Délai probable", "Commentaire"]); r += 1
+s0 = r
+for lab, prix, delai, com in [
+    ("Vente rapide", f"=B{R_VAL}", "< 3 mois", ""),
+    ("Valeur de marché réaliste", 580000, "6 à 9 mois", "Fourchette réaliste 570-600 k€."),
+    ("Annonce ambitieuse mais défendable", f"=D{R_VAL}", "9 à 18 mois", "Négociation probable vers 590-600 k€."),
+    ("VALEUR CENTRALE RETENUE", f"=C{R_VAL}", "", "Maison ≈ 515 k€ + calme / puits / façades + grange ≈ 65 k€, après plafond de marché."),
+]:
+    bold = lab.startswith("VALEUR")
+    ecrire(r, [lab, prix, f"=B{r}/$B${R_SURF}", f"=(B{r}-$C${c0 + 7})/$B${R_SURF}", delai, com],
+           fonts={1: BOLD if bold else BLACK, 2: BOLD if bold else (BLUE if isinstance(prix, int) else BLACK)},
+           fmts={2: EUR, 3: '#,##0 "€/m²"', 4: '#,##0 "€/m²"'})
+    if bold:
+        for j in range(1, 7):
+            ev.cell(r, j).fill = TOT_FILL
+    r += 1
+R_CENTRALE = r - 1
+
+# --- 6. Seuils
+r += 1
+ev.cell(r, 1, "6. Ces prix sont-ils réalistes ?").font = H2; r += 1
+entete(r, ["Prix", "€/m² habitable", "Verdict", "Pourquoi"]); r += 1
+for prix, verdict, why in [
+    (600000, "Objectif haut atteignable", "Exécution parfaite + acheteur qui valorise la grange ; haut de la fourchette, pas le cas de base."),
+    (650000, "Prix d'annonce, pas de vente", "Au-dessus de tout ce qui s'affiche localement hors cas d'exception."),
+    (700000, "Irréaliste aujourd'hui", "≈ 3 000 €/m², > 50 % au-dessus des ventes réelles de la commune ; aucun comparable."),
+]:
+    ecrire(r, [prix, f"=A{r}/$B${R_SURF}", verdict, why], fonts={1: BLUE, 3: BOLD}, fmts={1: EUR, 2: '#,##0 "€/m²"'}); r += 1
+
+# --- 7. Coût vs valeur
+r += 1
+ev.cell(r, 1, "7. Coût total du projet face à la valeur").font = H2; r += 1
+entete(r, ["Élément", "Montant €", "Source"]); r += 1
+k0 = r
+ecrire(r, ["Prix d'achat", f"=B{R_ACHAT}", "Hypothèses"], fonts={2: GREEN}, fmts={2: EUR}); r += 1
+ecrire(r, ["Travaux (étage + RDC + toiture + façades), montant retenu sans sarking", "=Synthèse!F7", "Onglet Synthèse"], fonts={2: GREEN}, fmts={2: EUR}); r += 1
+ecrire(r, ["Postes hors budget (moyenne)", "=(Paramètres!B14+Paramètres!C14)/2", "Onglet Paramètres"], fonts={2: GREEN}, fmts={2: EUR}); r += 1
+ecrire(r, ["Extérieurs (piscine, jacuzzi, pergola, paysager…)", f"=B{R_EXT}", "Hypothèses"], fonts={2: GREEN}, fmts={2: EUR}); r += 1
+ecrire(r, ["COÛT TOTAL DU PROJET", f"=SUM(B{k0}:B{r - 1})", ""], fonts={1: BOLD, 2: BOLD}, fmts={2: EUR})
+R_COUT = r; r += 1
+ecrire(r, ["Valeur centrale retenue", f"=B{R_CENTRALE}", "Section 5"], fonts={2: GREEN}, fmts={2: EUR}); r += 1
+ecrire(r, ["PLUS / MOINS-VALUE LATENTE", f"=B{r - 1}-B{R_COUT}", "Négatif = le marché ne rembourse pas tout l'investissement"],
+       fonts={1: BOLD, 2: BOLD}, fmts={2: '#,##0 €;[Red]-#,##0 €'})
+for j in range(1, 4):
+    ev.cell(r, j).fill = TOT_FILL
+r += 2
+
+# --- 8. Facteurs de variation
+ev.cell(r, 1, "8. Ce qui peut faire varier la valeur de ± 50 k€ ou plus").font = H2; r += 1
+entete(r, ["Facteur", "Sens", "Impact estimé"]); r += 1
+for fac, sens, imp in [
+    ("Grange identifiée « changement de destination » au PLUi", "+", "+20 à +50 k€"),
+    ("DPE A/B (sarking, PAC, pisé sain)", "+", "+10 à +30 k€"),
+    ("Maison existante rénovée au même niveau, cuisine ouverte vers le séjour", "+", "+15 à +40 k€"),
+    ("Historique Airbnb 12-24 mois avec comptes certifiés", "+", "+10 à +40 k€ (acheteur investisseur)"),
+    ("Acheteur collectionneur / artisan valorisant la grange", "+", "+20 à +50 k€"),
+    ("Maison existante pas au niveau de la grange (effet « deux bâtiments »)", "−", "−30 à −60 k€"),
+    ("Surface habitable légale réduite par les rampants", "−", "−10 à −30 k€ (lecture de l'annonce)"),
+    ("DPE D ou pire, humidité dans le pisé", "−", "−20 à −50 k€"),
+    ("Assainissement non conforme (SPANC)", "−", "−10 à −25 k€"),
+    ("Dossiers incomplets : changement de destination, DAACT, amiante grange", "−", "Blocage ou −20 à −50 k€"),
+    ("Hausse des taux de crédit", "−", "−5 à −10 % de la valeur"),
+    ("Bien perçu comme « gîte » plutôt que maison familiale", "−", "−10 à −30 k€"),
+]:
+    ecrire(r, [fac, sens, imp], fonts={2: BOLD}); r += 1
+
+# --- 9. Sources
+r += 1
+ev.cell(r, 1, "9. Sources").font = H2; r += 1
+for lab, url in [
+    ("Square Habitat – Sainte-Anne-sur-Gervonde", "https://www.squarehabitat.fr/prix-immobilier/auvergne-rhone-alpes/isere/sainte-anne-sur-gervonde-38440"),
+    ("PAP – Sainte-Anne-sur-Gervonde", "https://www.pap.fr/vendeur/prix-m2/sainte-anne-sur-gervonde-38440-g21905"),
+    ("Immovrai – Sainte-Anne-sur-Gervonde (DVF)", "https://www.immovrai.com/prix-immobilier/auvergne-rhone-alpes/isere/38440-sainte-anne-sur-gervonde"),
+    ("Immovrai – Châtonnay", "https://www.immovrai.com/prix-immobilier/auvergne-rhone-alpes/isere/38440-chatonnay"),
+    ("Immovrai – Meyrieu-les-Étangs", "https://www.immovrai.com/prix-immobilier/auvergne-rhone-alpes/isere/38440-meyrieu-les-etangs"),
+    ("PAP – Saint-Jean-de-Bournay", "https://www.pap.fr/vendeur/prix-m2/saint-jean-de-bournay-38440-g21897"),
+    ("MeilleursAgents – Saint-Jean-de-Bournay", "https://www.meilleursagents.com/prix-immobilier/saint-jean-de-bournay-38440/"),
+    ("PAP – Beauvoir-de-Marc", "https://www.pap.fr/vendeur/prix-m2/beauvoir-de-marc-38440-g21845"),
+    ("Logic-immo – maisons avec piscine à Saint-Jean-de-Bournay", "https://www.logic-immo.com/maison-saint-jean-de-bournay/vente-maison-saint-jean-de-bournay/maison-avec-piscine-saint-jean-de-bournay-38440-28320_2.html"),
+    ("Nestenn – Beauvoir-de-Marc, maison avec piscine", "https://immobilier-heyrieux.nestenn.com/beauvoir-de-marc-maison-a-vendre-avec-piscine-au-calme-dpe-d-ref-38743724"),
+    ("Propriétés Rurales – corps de ferme rénové", "https://www.proprietes-rurales.com/immobilier/vente-propriete-agricole-elevage-isere-fr_VN23101.htm"),
+    ("Belles Demeures – secteur Vienne", "https://www.bellesdemeures.com/vente/france/rhone-alpes/isere/vienne/maison-luxe-option-piscine/tt-2-tb-2-opt-1-pl-16210/"),
+    ("Zimo – hangars à vendre en Isère", "https://www.zimo.fr/annonces/immobilier-professionnel/vente/hangar/isere-38"),
+    ("French Property – hangars Nord-Isère", "https://www.french-property.com/sale-property/3772-An88y0i9gsieel8p"),
+    ("MRAe – PLUi Bièvre Isère, secteur Région Saint-Jeannaise", "https://www.mrae.developpement-durable.gouv.fr/IMG/pdf/2023acara4_mod2-plui-bievreiserecommunaute-secteurregionsaintjeannaise_ys.pdf"),
+    ("DVF officiel (ventes réelles, à consulter)", "https://app.dvf.etalab.gouv.fr"),
+]:
+    c = ev.cell(r, 1, lab); c.font = Font(name=F, color="0563C1", underline="single"); c.hyperlink = url; r += 1
+
+for col, w in zip("ABCDEFGHIJ", (52, 18, 18, 22, 14, 18, 12, 14, 12, 34)):
+    ev.column_dimensions[col].width = w
+ev.column_dimensions["E"].width = 40
+ev.column_dimensions["F"].width = 34
+
 wb.calculation.fullCalcOnLoad = True
 wb.save("/home/user/djgedeon/la-marinka/La Marinka.xlsx")
 print("ok")
