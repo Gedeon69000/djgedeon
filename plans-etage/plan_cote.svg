@@ -117,22 +117,6 @@
 <line x1="730.8" y1="795.8" x2="795.8" y2="733.3" stroke="#1f5f8b" stroke-width="0.5" stroke-dasharray="3 3"/>
 <line x1="730.8" y1="733.3" x2="795.8" y2="795.8" stroke="#1f5f8b" stroke-width="0.5" stroke-dasharray="3 3"/>
 <text x="763.3" y="805.8" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="8" font-weight="normal" text-anchor="middle" fill="#1f5f8b" >V 78×98</text>
-<rect x="175.0" y="287.5" width="45.8" height="50.0" fill="#dbe9f3" fill-opacity="0.35" stroke="#1f5f8b" stroke-width="1.1" stroke-dasharray="5 3"/>
-<line x1="175.0" y1="337.5" x2="220.8" y2="287.5" stroke="#1f5f8b" stroke-width="0.5" stroke-dasharray="3 3"/>
-<line x1="175.0" y1="287.5" x2="220.8" y2="337.5" stroke="#1f5f8b" stroke-width="0.5" stroke-dasharray="3 3"/>
-<text x="197.9" y="347.5" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="8" font-weight="normal" text-anchor="middle" fill="#1f5f8b" >V 55×78</text>
-<rect x="776.7" y="287.5" width="45.8" height="50.0" fill="#dbe9f3" fill-opacity="0.35" stroke="#1f5f8b" stroke-width="1.1" stroke-dasharray="5 3"/>
-<line x1="776.7" y1="337.5" x2="822.5" y2="287.5" stroke="#1f5f8b" stroke-width="0.5" stroke-dasharray="3 3"/>
-<line x1="776.7" y1="287.5" x2="822.5" y2="337.5" stroke="#1f5f8b" stroke-width="0.5" stroke-dasharray="3 3"/>
-<text x="799.6" y="347.5" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="8" font-weight="normal" text-anchor="middle" fill="#1f5f8b" >V 55×78</text>
-<rect x="254.2" y="595.8" width="45.8" height="50.0" fill="#dbe9f3" fill-opacity="0.35" stroke="#1f5f8b" stroke-width="1.1" stroke-dasharray="5 3"/>
-<line x1="254.2" y1="645.8" x2="300.0" y2="595.8" stroke="#1f5f8b" stroke-width="0.5" stroke-dasharray="3 3"/>
-<line x1="254.2" y1="595.8" x2="300.0" y2="645.8" stroke="#1f5f8b" stroke-width="0.5" stroke-dasharray="3 3"/>
-<text x="277.1" y="655.8" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="8" font-weight="normal" text-anchor="middle" fill="#1f5f8b" >V 55×78</text>
-<rect x="775.0" y="595.8" width="45.8" height="50.0" fill="#dbe9f3" fill-opacity="0.35" stroke="#1f5f8b" stroke-width="1.1" stroke-dasharray="5 3"/>
-<line x1="775.0" y1="645.8" x2="820.8" y2="595.8" stroke="#1f5f8b" stroke-width="0.5" stroke-dasharray="3 3"/>
-<line x1="775.0" y1="595.8" x2="820.8" y2="645.8" stroke="#1f5f8b" stroke-width="0.5" stroke-dasharray="3 3"/>
-<text x="797.9" y="655.8" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="8" font-weight="normal" text-anchor="middle" fill="#1f5f8b" >V 55×78</text>
 <rect x="775.0" y="439.2" width="45.8" height="41.7" fill="#dbe9f3" fill-opacity="0.35" stroke="#1f5f8b" stroke-width="1.1" stroke-dasharray="5 3"/>
 <line x1="775.0" y1="480.8" x2="820.8" y2="439.2" stroke="#1f5f8b" stroke-width="0.5" stroke-dasharray="3 3"/>
 <line x1="775.0" y1="439.2" x2="820.8" y2="480.8" stroke="#1f5f8b" stroke-width="0.5" stroke-dasharray="3 3"/>
@@ -459,7 +443,7 @@
 <text x="1058" y="610" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="11.5" fill="#222">en pointillés bleus). Faîtage E-O supposé.</text>
 <text x="1058" y="627" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="11.5" fill="#222">Combles : zones sous 1,80 m hors Carrez,</text>
 <text x="1058" y="644" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="11.5" fill="#222">à vérifier selon la hauteur sous rampant.</text>
-<text x="1058" y="661" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="11.5" fill="#222">SdE : douche 90 × 120, vasque 80, VMC hygro.</text>
+<text x="1058" y="661" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="11.5" fill="#222">SdE sans Velux : douche 90×120, vasque 80, VMC.</text>
 <text x="1058" y="678" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="11.5" fill="#222">WC suspendu + lave-mains, VMC.</text>
 <text x="1058" y="695" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="11.5" fill="#222">Gaine Est : SdE 2 + WC + SdE 4 (chute Ø100).</text>
 <rect x="1040" y="800" width="330" height="150" fill="#f6f6f4" stroke="#111" stroke-width="1.2"/>
@@ -476,7 +460,7 @@
 <text x="1160" y="926" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="9" fill="#555">DATE</text>
 <text x="1160" y="943" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold">04/10/2026</text>
 <text x="1270" y="926" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="9" fill="#555">INDICE</text>
-<text x="1270" y="943" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold">B — esquisse</text>
+<text x="1270" y="943" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold">C — esquisse</text>
 <line x1="1040" y1="732" x2="1370" y2="732" stroke="#111" stroke-width="1"/>
 <rect x="1058" y="746" width="30" height="12" fill="url(#hachure)" stroke="#000"/>
 <text x="1096" y="756" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="11">Mur ext. conservé</text>

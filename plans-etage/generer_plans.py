@@ -53,10 +53,6 @@ VELUX = [
     (6.29, 6.95, 7.07, 7.70, "78×98"),   # Ch2
     (1.32, 0.30, 2.10, 1.05, "78×98"),   # Ch3
     (6.77, 0.30, 7.55, 1.05, "78×98"),   # Ch4
-    (0.10, 5.80, 0.65, 6.40, "55×78"),   # SdE1
-    (7.32, 5.80, 7.87, 6.40, "55×78"),   # SdE2
-    (1.05, 2.10, 1.60, 2.70, "55×78"),   # SdE3
-    (7.30, 2.10, 7.85, 2.70, "55×78"),   # SdE4
     (7.30, 4.08, 7.85, 4.58, "55×78"),   # WC
     (4.90, 4.02, 5.45, 4.55, "55×78"),   # dégagement
 ]
@@ -502,7 +498,7 @@ def panneau(mode, titre_plan):
         "en pointillés bleus). Faîtage E-O supposé.",
         "Combles : zones sous 1,80 m hors Carrez,",
         "à vérifier selon la hauteur sous rampant.",
-        "SdE : douche 90 × 120, vasque 80, VMC hygro.",
+        "SdE sans Velux : douche 90×120, vasque 80, VMC.",
         "WC suspendu + lave-mains, VMC.",
         "Gaine Est : SdE 2 + WC + SdE 4 (chute Ø100).",
     ]
@@ -521,7 +517,7 @@ def panneau(mode, titre_plan):
     o.append(f'<line x1="{x0}" y1="{cy + 112}" x2="{x0 + 330}" y2="{cy + 112}" stroke="#111"/>')
     o.append(f'<line x1="{x0 + 110}" y1="{cy + 112}" x2="{x0 + 110}" y2="{cy + 150}" stroke="#111"/>')
     o.append(f'<line x1="{x0 + 220}" y1="{cy + 112}" x2="{x0 + 220}" y2="{cy + 150}" stroke="#111"/>')
-    for i, (k, v) in enumerate([("ÉCHELLE", "1/40 (A3)"), ("DATE", "04/10/2026"), ("INDICE", "B — esquisse")]):
+    for i, (k, v) in enumerate([("ÉCHELLE", "1/40 (A3)"), ("DATE", "04/10/2026"), ("INDICE", "C — esquisse")]):
         o.append(f'<text x="{x0 + 10 + i * 110}" y="{cy + 126}" font-family="{FONT}" font-size="9" fill="#555">{k}</text>')
         o.append(f'<text x="{x0 + 10 + i * 110}" y="{cy + 143}" font-family="{FONT}" font-size="12" font-weight="bold">{v}</text>')
     return o
