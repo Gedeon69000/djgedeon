@@ -41,9 +41,9 @@ CLOISONS = [
     (4.17, Y_N, 4.24, IY),             # ch1 / ch2
     (4.65, 0.00, 4.72, Y_CS),          # ch3 / ch4
     # SdE 1 (en long, Nord-Ouest) + rangement sous rampant
-    (1.25, Y_N, 1.32, 7.56), (0.00, 7.49, 1.25, 7.56),
+    (1.25, Y_N, 1.35, 7.56), (0.00, 7.49, 1.25, 7.56),   # cloison 10 cm (galandage)
     # SdE 2 (en long, Nord-Est) + rangement
-    (7.08, Y_N, 7.15, 7.56), (7.15, 7.49, IX, 7.56),
+    (7.05, Y_N, 7.15, 7.56), (7.15, 7.49, IX, 7.56),     # cloison 10 cm (galandage)
     # SdE 3 (en long, le long du dégagement)
     (0.97, 2.73, 3.44, 2.80), (3.37, 2.80, 3.44, Y_CS),
     # SdE 4
@@ -51,44 +51,51 @@ CLOISONS = [
 ]
 
 # Portes : (charnière, u, n, largeur, rect d'ouverture dans le mur)
+# Portes à galandage : (x0, x1 du mur, y début ouverture, y fin ouverture, y fin du caisson)
+GALANDAGES = [(1.25, 1.35, 5.25, 5.98, 6.71),   # SdE1
+              (7.05, 7.15, 5.25, 5.98, 6.71)]   # SdE2
+
 PORTES = [
     ((1.47, Y_N), (1, 0), (0, 1), 0.80, (1.47, Y_C1, 2.27, Y_N)),        # Ch1
     ((6.53, Y_N), (-1, 0), (0, 1), 0.80, (5.73, Y_C1, 6.53, Y_N)),       # Ch2
     ((3.62, Y_CS), (1, 0), (0, -1), 0.80, (3.62, Y_CS, 4.42, Y_C0)),     # Ch3
     ((5.75, Y_CS), (-1, 0), (0, -1), 0.80, (4.95, Y_CS, 5.75, Y_C0)),    # Ch4
     ((X_WC + 0.07, 4.22), (0, 1), (1, 0), 0.70, (X_WC, 4.22, X_WC + 0.07, 4.92)),  # WC
-    ((1.25, 5.25), (0, 1), (-1, 0), 0.70, (1.25, 5.25, 1.32, 5.95)),     # SdE1
-    ((7.15, 5.25), (0, 1), (1, 0), 0.70, (7.08, 5.25, 7.15, 5.95)),      # SdE2
     ((3.37, 2.95), (0, 1), (-1, 0), 0.70, (3.37, 2.95, 3.44, 3.65)),     # SdE3
     ((6.00, 2.95), (0, 1), (1, 0), 0.70, (5.93, 2.95, 6.00, 3.65)),      # SdE4
 ]
 
 # Velux (projection en plan) : chambres + dégagement uniquement
+# Velux disposés « en dé de 5 » : 4 chambres alignées deux à deux,
+# symétriques par rapport à l'axe Nord-Sud (x = 4,20) et au faîtage (±2,20),
+# celui du dégagement sur l'axe central, juste au Nord du faîtage.
+VX_AXE, VX_D, VY_D = IX / 2, 1.46, 2.20
+_v78 = lambda cx, cy: (cx - 0.39, cy - 0.375, cx + 0.39, cy + 0.375, "78×98")
 VELUX = [
-    (2.36, 5.95, 3.14, 6.70, "78×98"),   # Ch1
-    (5.27, 5.95, 6.05, 6.70, "78×98"),   # Ch2
-    (3.05, 1.10, 3.83, 1.85, "78×98"),   # Ch3
-    (5.54, 1.10, 6.32, 1.85, "78×98"),   # Ch4
-    (2.10, 4.38, 2.65, 4.95, "55×78"),   # dégagement
+    _v78(VX_AXE - VX_D, IY / 2 + VY_D),   # Ch1
+    _v78(VX_AXE + VX_D, IY / 2 + VY_D),   # Ch2
+    _v78(VX_AXE - VX_D, IY / 2 - VY_D),   # Ch3
+    _v78(VX_AXE + VX_D, IY / 2 - VY_D),   # Ch4
+    (VX_AXE - 0.275, 4.38, VX_AXE + 0.275, 4.95, "55×78"),   # dégagement (centre)
 ]
 FAITAGE = IY / 2  # hypothèse : faîtage Est-Ouest au milieu
 
 PIECES = {  # nom: (polygone, surface, label_cote, label_amenagement, dims)
-    "CHAMBRE 1": ([(1.32, Y_N), (4.17, Y_N), (4.17, IY), (0, IY), (0, 7.56), (1.32, 7.56)],
-                  11.3, (2.75, 7.95), (2.75, 6.25), "2,85 × 3,51"),
-    "CHAMBRE 2": ([(4.24, Y_N), (7.08, Y_N), (7.08, 7.56), (IX, 7.56), (IX, IY), (4.24, IY)],
-                  11.3, (5.66, 7.95), (5.66, 6.25), "2,84 × 3,51"),
+    "CHAMBRE 1": ([(1.35, Y_N), (4.17, Y_N), (4.17, IY), (0, IY), (0, 7.56), (1.35, 7.56)],
+                  11.2, (2.76, 7.95), (2.74, 6.42), "2,82 × 3,51"),
+    "CHAMBRE 2": ([(4.24, Y_N), (7.05, Y_N), (7.05, 7.56), (IX, 7.56), (IX, IY), (4.24, IY)],
+                  11.2, (5.64, 7.95), (5.66, 6.42), "2,81 × 3,51"),
     "CHAMBRE 3": ([(0.97, 0), (4.65, 0), (4.65, Y_CS), (3.44, Y_CS), (3.44, 2.73), (0.97, 2.73)],
-                  11.6, (2.30, 1.55), (3.55, 2.05), "3,68 × 2,73"),
+                  11.6, (2.30, 1.10), (3.50, 1.30), "3,68 × 2,73"),
     "CHAMBRE 4": ([(4.72, 0), (IX, 0), (IX, 2.73), (5.93, 2.73), (5.93, Y_CS), (4.72, Y_CS)],
-                  11.6, (7.07, 1.55), (5.82, 2.05), "3,68 × 2,73"),
+                  11.6, (6.85, 1.10), (5.87, 1.30), "3,68 × 2,73"),
     "SdE 1": ([(0, Y_N), (1.25, Y_N), (1.25, 7.49), (0, 7.49)], 3.0, (0.62, 6.45), (0.62, 5.55), "1,25 × 2,40"),
     "SdE 2": ([(7.15, Y_N), (IX, Y_N), (IX, 7.49), (7.15, 7.49)], 3.0, (7.77, 6.45), (7.77, 5.55), "1,25 × 2,40"),
     "SdE 3": ([(0.97, 2.80), (3.37, 2.80), (3.37, Y_CS), (0.97, Y_CS)], 3.0, (2.30, 3.45), (2.30, 3.35), "2,40 × 1,25"),
     "SdE 4": ([(6.00, 2.80), (IX, 2.80), (IX, Y_CS), (6.00, Y_CS)], 3.0, (7.10, 3.45), (7.10, 3.35), "2,40 × 1,25"),
     "WC": ([(X_WC + 0.07, Y_C0), (IX, Y_C0), (IX, Y_C1), (X_WC + 0.07, Y_C1)], 1.6, (7.85, 4.62), (7.55, 4.66), "1,73 × 0,90"),
     "DÉGAGEMENT": ([(0, 3.70), (0.90, 3.70), (0.90, Y_C0), (X_WC, Y_C0), (X_WC, Y_C1), (0, Y_C1)],
-                   6.3, (3.70, 4.62), (3.70, 4.62), ""),
+                   6.3, (2.75, 4.62), (2.75, 4.62), ""),
 }
 RANGEMENTS = [(0.0, 7.56, 1.25, IY), (7.15, 7.56, IX, IY)]
 
@@ -188,6 +195,25 @@ def portes(mode):
     return out
 
 
+def galandages(mode):
+    out = []
+    fill = "#ffffff" if mode == "cote" else "#efe6d8"
+    for x0, x1, y0, y1, yc in GALANDAGES:
+        out.append(rect(x0, y0, x1, y1, f'fill="{fill}" stroke="none"'))
+        xm = (x0 + x1) / 2
+        # caisson dans la cloison
+        out.append(rect(x0 + 0.02, y1, x1 - 0.02, yc, 'fill="#fff" stroke="#111" stroke-width="0.6" stroke-dasharray="3 2"'))
+        # vantail ouvert (dans le caisson) + position fermée en pointillés
+        out.append(line(xm, y1 - 0.06, xm, yc - 0.02, 'stroke="#111" stroke-width="2.2"'))
+        out.append(line(xm, y0, xm, y1, 'stroke="#555" stroke-width="0.8" stroke-dasharray="4 3"'))
+        if mode == "cote":
+            tx = x0 - 0.17 if x0 < 4 else x1 + 0.17
+            px, py = P(tx, (y0 + y1) / 2)
+            out.append(f'<text x="{px:.1f}" y="{py:.1f}" font-family="{FONT}" font-size="8" text-anchor="middle" '
+                       f'fill="#444" transform="rotate(-90 {px:.1f} {py:.1f})">gal. 0,73</text>')
+    return out
+
+
 def escalier(mode):
     out = []
     fill = "#ffffff" if mode == "cote" else "#d8b48a"
@@ -222,7 +248,10 @@ def velux(mode):
         out.append(line(x0, y0, x1, y1, 'stroke="#1f5f8b" stroke-width="0.5" stroke-dasharray="3 3"'))
         out.append(line(x0, y1, x1, y0, 'stroke="#1f5f8b" stroke-width="0.5" stroke-dasharray="3 3"'))
         if mode == "cote":
-            out.append(text((x0 + x1) / 2, y0 - 0.15, f"V {lib}", 7.5, fill="#1f5f8b"))
+            if lib == "55×78":
+                out.append(text(x1 + 0.06, (y0 + y1) / 2 - 0.03, f"V {lib}", 7.5, anchor="start", fill="#1f5f8b"))
+            else:
+                out.append(text((x0 + x1) / 2, y0 - 0.15, f"V {lib}", 7.5, fill="#1f5f8b"))
     out.append(line(-EXT - 0.25, FAITAGE, IX + EXT + 0.25, FAITAGE,
                     'stroke="#1f5f8b" stroke-width="0.7" stroke-dasharray="14 4 2 4" opacity="0.7"'))
     if mode != "cote":
@@ -286,7 +315,7 @@ def cotations():
     chaine_h([-d, d, .90, .07, 3.68, .07, 3.68, d], bottom + 58, bottom + 4, out)
     chaine_h([-d, NU_X], bottom + 90, bottom + 4, out, total=True)
     # Nord
-    chaine_h([pe, PISE, d, 1.25, .07, 2.85, .07, 2.84, .07, 1.25, d, PISE], top - 28, top - 4, out)
+    chaine_h([pe, PISE, d, 1.25, .10, 2.82, .07, 2.81, .10, 1.25, d, PISE], top - 28, top - 4, out)
     chaine_h([-d, d, 4.17, .07, 4.16, d], top - 58, top - 4, out)
     chaine_h([-d, NU_X], top - 90, top - 4, out, total=True)
     # Ouest
@@ -489,7 +518,7 @@ def echelle_graphique(x, y):
 
 
 SURFACES = [
-    ("Chambre 1 (dont rangement 1,3)", "11,3"), ("Chambre 2 (dont rangement 1,3)", "11,3"),
+    ("Chambre 1 (dont rangement 1,3)", "11,2"), ("Chambre 2 (dont rangement 1,3)", "11,2"),
     ("Chambre 3", "11,6"), ("Chambre 4", "11,6"),
     ("Salles d'eau 1 à 4 (4 × 3,0)", "12,0"), ("WC indépendant", "1,6"),
     ("Dégagement + palier", "6,3"), ("Trémie escalier", "3,3"),
@@ -508,7 +537,7 @@ def panneau(titre_plan):
         o.append(f'<line x1="{x0 + 18}" y1="{yy + 7}" x2="{x0 + 312}" y2="{yy + 7}" stroke="#ddd" stroke-width="0.7"/>')
         yy += 23
     o.append(f'<text x="{x0 + 18}" y="{yy + 4}" font-family="{FONT}" font-size="13" font-weight="bold">Total pièces (fini)</text>')
-    o.append(f'<text x="{x0 + 312}" y="{yy + 4}" font-family="{FONT}" font-size="13" font-weight="bold" text-anchor="end">69,0 m²</text>')
+    o.append(f'<text x="{x0 + 312}" y="{yy + 4}" font-family="{FONT}" font-size="13" font-weight="bold" text-anchor="end">68,8 m²</text>')
     o.append(f'<text x="{x0 + 18}" y="{yy + 24}" font-family="{FONT}" font-size="11" fill="#444">Plateau murs nus 8,70 × 8,90 = 77,4 m²</text>')
     o.append(f'<text x="{x0 + 18}" y="{yy + 40}" font-family="{FONT}" font-size="11" fill="#444">Intérieur fini (doublage 15) 8,40 × 8,60 = 72,2 m²</text>')
     yy += 70
@@ -528,9 +557,9 @@ def panneau(titre_plan):
         "SdE et WC sans Velux : VMC hygro obligatoire.",
         "SdE en longueur 1,25 × 2,40 : douche 120×80",
         "au fond, vasque 75, sèche-serviettes.",
-        "Rangements bas sous rampant (ch. 1 et 2).",
-        "Faîtage E-O supposé ; zones < 1,80 m",
-        "hors Carrez, à vérifier.",
+        "SdE 1 et 2 : portes à galandage (cloison 10).",
+        "Velux en « dé de 5 », alignés et symétriques.",
+        "Faîtage E-O ; zones < 1,80 m hors Carrez.",
     ]
     yy += 30
     for n in notes:
@@ -546,7 +575,7 @@ def panneau(titre_plan):
     o.append(f'<line x1="{x0}" y1="{cy + 112}" x2="{x0 + 330}" y2="{cy + 112}" stroke="#111"/>')
     o.append(f'<line x1="{x0 + 110}" y1="{cy + 112}" x2="{x0 + 110}" y2="{cy + 150}" stroke="#111"/>')
     o.append(f'<line x1="{x0 + 220}" y1="{cy + 112}" x2="{x0 + 220}" y2="{cy + 150}" stroke="#111"/>')
-    for i, (k, v) in enumerate([("ÉCHELLE", "1/50 (A3)"), ("DATE", "04/10/2026"), ("INDICE", "D — esquisse")]):
+    for i, (k, v) in enumerate([("ÉCHELLE", "1/50 (A3)"), ("DATE", "04/10/2026"), ("INDICE", "E — esquisse")]):
         o.append(f'<text x="{x0 + 10 + i * 110}" y="{cy + 126}" font-family="{FONT}" font-size="9" fill="#555">{k}</text>')
         o.append(f'<text x="{x0 + 10 + i * 110}" y="{cy + 143}" font-family="{FONT}" font-size="12" font-weight="bold">{v}</text>')
     return o
@@ -603,6 +632,7 @@ def plan(mode):
     o += escalier(mode)
     o += murs(mode)
     o += portes(mode)
+    o += galandages(mode)
     if mode == "amenagement":
         o += mobilier()
     else:
