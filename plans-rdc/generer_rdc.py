@@ -16,15 +16,14 @@ CLOISONS = [
     (0.90, 0.90, 0.97, 3.77),          # cloison / garde-corps de l'escalier (pied ouvert)
 ]
 # (charnière, u, n, largeur, rect d'ouverture)
-PORTES = [
-    ((2.50, 0.00), (-1, 0), (0, 1), 0.90, (1.60, -EXT, 2.50, 0.00)),    # accès Sud (position à confirmer)
-]
+PORTES = []   # pas de porte : accès par la façade vitrée (baie Est)
 BAIE = (2.30, 6.30)        # baie vitrée 4,00 m, mur Est
 CAISSONS = [(0.30, 2.30), (6.30, 8.30)]
 
 PIECES = {
-    "SALON": (None, None, (5.60, 2.05), (5.40, 2.82), "10 à 13 places"),
-    "SALLE À MANGER": (None, None, (5.10, 7.35), (5.10, 7.55), "12 couverts"),
+    "SALON": (None, None, (6.25, 7.30), (6.25, 7.55), "mur TV au Nord"),
+    "BILLARD": (None, None, (2.05, 6.50), (2.05, 4.75), "7 pieds"),
+    "SALLE À MANGER": (None, None, (5.20, 2.25), (5.20, 3.55), "12 couverts"),
 }
 PIECE_DE_VIE = [(0, 3.70), (0.90, 3.70), (0.90, 3.77), (0.97, 3.77), (0.97, 0), (IX, 0), (IX, IY), (0, IY)]
 
@@ -34,20 +33,20 @@ SURFACES = [
 NOTES = [
     "Murs pisé ≈ 50 cm + doublage 15 cm (lame",
     "d'air + isolant perspirant), comme à l'étage.",
-    "Baie vitrée 4,00 m à galandage, mur Est",
-    "(jardin) : 2 vantaux de 2,00 m dans les murs.",
+    "Façade vitrée Est (jardin) = accès : baie 4,00 m",
+    "à galandage, 2 vantaux de 2,00 m dans les murs.",
     "Ouverture 4 m dans le pisé : linteau béton ou",
     "acier, étude BET obligatoire. Repli : 3,00 m.",
-    "Caissons : doublage épaissi local (≈ 20 cm).",
     "Escalier identique à l'étage (¼ tournant bas).",
-    "Pièce unique : salon + salle à manger.",
-    "Salon en U ouvert sur la baie : canapés 3,60",
-    "+ 3,20, 2 fauteuils, 2 poufs = 10 à 13 places.",
+    "Salon en L face au mur TV (Nord), vue jardin :",
+    "canapé d'angle + 2 fauteuils + 2 poufs ≈ 11 pl.",
+    "Recul canapé / TV ≈ 2,90 m (écran 75\" possible).",
+    "Billard 7 pieds (2,30 × 1,30) : dégagements",
+    "1,10 à 1,65 m — queue courte côté Nord.",
     "Table 3,40 × 1,05 : 12 couverts (5 + 5 + 2).",
-    "Enfilade mur Nord, bibliothèque mur Ouest.",
-    "Accès Sud et autres ouvertures : à reporter",
-    "selon l'existant.",
+    "Enfilade mur Sud ; pas de cuisine au RDC.",
 ]
+
 LEGENDE = [("pise", "Mur pisé existant"), ("dbl", "Doublage 15 (lame d'air)"),
            ("cl", "Cloison neuve 7 cm"), ("baie", "Baie vitrée galandage"),
            ("porte", "Porte (P = passage)"), ("fen", "Caisson galandage")]
@@ -72,7 +71,6 @@ def portes(mode):
         if mode == "cote" and y0 > 0:
             out.append(text((x0 + x1) / 2, y0 - 0.17, f"P {fmt(w)}", 8, fill="#444"))
     # seuil de la porte d'entrée
-    out.append(line(1.60, -EXT, 2.50, -EXT, 'stroke="#111" stroke-width="1.2"'))
     return out
 
 
@@ -153,6 +151,8 @@ def fauteuil(x0, y0, x1, y1, dossier):
     e = 0.17
     if dossier == "W":
         o.append(rect(x0, y0, x0 + e, y1, 'fill="#a8977c" stroke="#6d665c" stroke-width="0.6" rx="3"'))
+    elif dossier == "E":
+        o.append(rect(x1 - e, y0, x1, y1, 'fill="#a8977c" stroke="#6d665c" stroke-width="0.6" rx="3"'))
     o.append(rect(x0, y0, x1, y0 + 0.12, 'fill="#a8977c" stroke="#6d665c" stroke-width="0.6" rx="3"'))
     o.append(rect(x0, y1 - 0.12, x1, y1, 'fill="#a8977c" stroke="#6d665c" stroke-width="0.6" rx="3"'))
     return o
@@ -160,18 +160,37 @@ def fauteuil(x0, y0, x1, y1, dossier):
 
 def mobilier():
     o = []
-    # ---- Salon en U ouvert vers la baie (Est)
-    o.append(rect(3.55, 1.20, 7.05, 2.95, 'fill="#e9e1d3" stroke="#cbbfa9" stroke-width="0.8" rx="4"'))
-    o += canape(3.80, 0.10, 7.40, 1.05, "S", 5, "#b9b1a3")
-    o += canape(4.00, 3.10, 7.20, 4.05, "N", 4, "#a7b3a0")
-    o += fauteuil(2.45, 1.30, 3.25, 2.05, "W")
-    o += fauteuil(2.45, 2.15, 3.25, 2.90, "W")
-    o.append(rect(4.70, 1.65, 6.10, 2.45, 'fill="#c99c6a" stroke="#6b4f2f" stroke-width="0.8" rx="4"'))
-    o.append(circle(6.65, 1.75, 0.22, 'fill="#d9c7a7" stroke="#8a7a5f" stroke-width="0.8"'))
-    o.append(circle(6.65, 2.45, 0.22, 'fill="#d9c7a7" stroke="#8a7a5f" stroke-width="0.8"'))
-    o += gp.plante(8.15, 1.30) + gp.plante(1.20, 3.45)
-    # ---- Salle à manger : table 3,40 x 1,05 — 12 couverts, face à la baie
-    tx0, tx1, ty0, ty1 = 3.40, 6.80, 5.60, 6.65
+    # ---- Salon (en haut à droite) : canapé d'angle face au mur TV (Nord)
+    o.append(rect(4.95, 5.85, 7.65, 7.95, 'fill="#e9e1d3" stroke="#cbbfa9" stroke-width="0.8" rx="4"'))
+    o += canape(4.30, 4.70, 7.80, 5.65, "S", 5, "#b9b1a3")              # assise face au Nord
+    px0, py0, px1, py1 = 4.30, 5.65, 5.25, 7.75                           # retour d'angle, assise vers l'Est
+    o.append(rect(px0, py0, px1, py1, 'fill="#b9b1a3" stroke="#6d665c" stroke-width="0.9" rx="5"'))
+    o.append(rect(px0, py0, px0 + 0.20, py1, 'fill="#9c9487" stroke="#6d665c" stroke-width="0.6" rx="3"'))
+    o.append(rect(px0, py1 - 0.20, px1, py1, 'fill="#9c9487" stroke="#6d665c" stroke-width="0.6" rx="3"'))
+    for yy in (6.35, 7.05):
+        o.append(line(px0 + 0.20, yy, px1 - 0.05, yy, 'stroke="#8b8378" stroke-width="0.7"'))
+    o += fauteuil(7.55, 6.00, 8.35, 6.75, "E")
+    o += fauteuil(7.55, 6.90, 8.35, 7.65, "E")
+    o.append(rect(5.75, 6.25, 7.05, 7.00, 'fill="#c99c6a" stroke="#6b4f2f" stroke-width="0.8" rx="4"'))
+    o.append(circle(4.80, 8.25, 0.20, 'fill="#d9c7a7" stroke="#8a7a5f" stroke-width="0.8"'))
+    o.append(circle(7.65, 8.25, 0.20, 'fill="#d9c7a7" stroke="#8a7a5f" stroke-width="0.8"'))
+    # mur TV : meuble bas + écran
+    o.append(rect(5.25, 8.15, 7.25, IY, 'fill="#8a6f50" stroke="#4d3b28" stroke-width="0.9"'))
+    o.append(rect(5.55, 8.47, 6.95, 8.55, 'fill="#111" stroke="none"'))
+    o.append(text(6.25, 8.27, "meuble TV", 7, fill="#fff"))
+    # ---- Billard (en haut à gauche) + porte-queues + suspension
+    o.append(rect(1.40, 5.20, 2.70, 7.50, 'fill="#5a3b22" stroke="#2f1f12" stroke-width="1" rx="6"'))
+    o.append(rect(1.52, 5.32, 2.58, 7.38, 'fill="#2f6b45" stroke="#1f4a2f" stroke-width="0.8"'))
+    for cx, cy in ((1.52, 5.32), (2.58, 5.32), (1.52, 6.35), (2.58, 6.35), (1.52, 7.38), (2.58, 7.38)):
+        o.append(circle(cx, cy, 0.05, 'fill="#111"'))
+    o.append(rect(0.0, 5.60, 0.12, 7.10, 'fill="#8a6f50" stroke="#4d3b28" stroke-width="0.6"'))
+    o.append(text(0.25, 6.35, "queues", 7, fill="#555",
+                  extra=f'transform="rotate(-90 {P(0.25, 6.35)[0]:.1f} {P(0.25, 6.35)[1]:.1f})"'))
+    o.append(rect(1.55, 5.75, 2.55, 6.95, 'fill="none" stroke="#b08d57" stroke-width="0.8" stroke-dasharray="2 2"'))
+    # zone de jeu (dégagement queue)
+    o.append(rect(0.15, 3.95, 3.95, 8.45, 'fill="none" stroke="#2f6b45" stroke-width="0.6" stroke-dasharray="6 4" opacity="0.6"'))
+    # ---- Salle à manger (en bas) : table 3,40 x 1,05 — 12 couverts
+    tx0, tx1, ty0, ty1 = 3.50, 6.90, 1.60, 2.65
     o.append(rect(tx0, ty0, tx1, ty1, 'fill="#c99c6a" stroke="#6b4f2f" stroke-width="1" rx="3"'))
     xs = [tx0 + 0.34 + k * (tx1 - tx0 - 0.68) / 4 for k in range(5)]
     for cx in xs:
@@ -179,19 +198,16 @@ def mobilier():
         o += chaise(cx, ty0 - 0.25, "S")
     o += chaise(tx0 - 0.27, (ty0 + ty1) / 2, "W")
     o += chaise(tx1 + 0.27, (ty0 + ty1) / 2, "E")
-    for cx in (4.25, 5.10, 5.95):
+    for cx in (4.35, 5.20, 6.05):
         o.append(circle(cx, (ty0 + ty1) / 2, 0.12, 'fill="none" stroke="#b08d57" stroke-width="0.8" stroke-dasharray="2 2"'))
-    # ---- Enfilade (mur Nord) et bibliothèque (mur Ouest)
-    o.append(rect(3.90, 8.12, 6.30, IY, 'fill="#b58a5a" stroke="#6b4f2f" stroke-width="0.9"'))
-    o.append(text(5.10, 8.30, "enfilade", 7, fill="#fff"))
-    o.append(rect(0.0, 4.50, 0.38, 8.20, 'fill="#d8c3a2" stroke="#6b4f2f" stroke-width="0.9"'))
-    for k in range(1, 9):
-        yy = 4.50 + k * (8.20 - 4.50) / 9
-        o.append(line(0.02, yy, 0.36, yy, 'stroke="#a88d68" stroke-width="0.6"'))
-    o += gp.plante(0.25, 8.40) + gp.plante(8.15, 8.35)
-    # ---- coin lecture près de la bibliothèque
-    o += fauteuil(0.60, 6.10, 1.40, 6.90, "W")
-    o.append(circle(1.00, 7.30, 0.20, 'fill="#c99c6a" stroke="#6b4f2f" stroke-width="0.7"'))
+    o.append(rect(4.00, 0.0, 6.40, 0.45, 'fill="#b58a5a" stroke="#6b4f2f" stroke-width="0.9"'))
+    o.append(text(5.20, 0.17, "enfilade", 7, fill="#fff"))
+    # ---- bibliothèque basse mur Sud + plantes
+    o.append(rect(1.80, 0.0, 3.30, 0.35, 'fill="#d8c3a2" stroke="#6b4f2f" stroke-width="0.9"'))
+    for k in range(1, 5):
+        xx = 1.80 + k * 0.30
+        o.append(line(xx, 0.02, xx, 0.33, 'stroke="#a88d68" stroke-width="0.6"'))
+    o += gp.plante(8.15, 1.00) + gp.plante(8.15, 8.35) + gp.plante(0.30, 8.35) + gp.plante(1.20, 3.40)
     return o
 
 
@@ -202,7 +218,7 @@ def cotations():
     top, bottom = P(0, IY + EXT)[1], P(0, -EXT)[1]
     pe, d = -EXT, DBL
     # Sud : accès, escalier
-    gp.chaine_h([pe, PISE, d, 1.60, .90, 5.90, d, PISE], bottom + 28, bottom + 4, out)
+    gp.chaine_h([pe, PISE, d, IX, d, PISE], bottom + 28, bottom + 4, out)
     gp.chaine_h([-d, d, .90, .07, 7.43, d], bottom + 58, bottom + 4, out)
     gp.chaine_h([-d, gp.NU_X], bottom + 90, bottom + 4, out, total=True)
     # Nord
@@ -244,7 +260,7 @@ def plan(mode):
         if dims and (mode == "cote" or not petit):
             o.append(text(x, y - (0.38 if surf else 0.22), dims, 9, fill="#555", extra=halo))
     if mode == "cote":
-        o.append(text(5.10, 4.70, "SÉJOUR 68,7 m²", 13, "bold", extra=halo))
+        o.append(text(5.20, 4.15, "SÉJOUR 68,7 m²", 13, "bold", extra=halo))
         o += cotations()
         lab = "BAIE VITRÉE 4,00 m À GALANDAGE"
         px, py = P(IX - 0.30, (BAIE[0] + BAIE[1]) / 2)
@@ -258,13 +274,12 @@ def plan(mode):
         gp.chaine_h([-DBL, gp.NU_X], bottom + 40, bottom + 4, out, total=True)
         gp.chaine_v([-DBL, gp.NU_Y], left - 40, left - 4, out, total=True)
         o += out
-        o.append(text(2.05, -EXT - 0.32, "Accès ↑ (à confirmer)", 9.5, "bold", fill="#444"))
         o.append(text(IX + EXT + 0.35, 8.90, "JARDIN", 12, "bold", anchor="start", fill="#5d7f4f"))
     o.append(gp.nord(965, 90))
     o.append(gp.echelle_graphique(150, 960 - 22))
     o += gp.panneau(titre, surfaces=SURFACES, notes=NOTES, total="72,0 m²",
                     projet="La Marinka — Rez-de-chaussée (77 m²)",
-                    sous_titre="Salon + salle à manger 12 pers. + baie jardin", indice="B — esquisse")
+                    sous_titre="Salon TV + billard + salle à manger 12 pers.", indice="C — esquisse")
     o += gp.legende(mode, LEGENDE)
     o.append('</svg>')
     return "\n".join(o)
