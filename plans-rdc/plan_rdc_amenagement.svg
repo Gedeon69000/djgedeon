@@ -1,0 +1,277 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="990" viewBox="0 0 1400 990">
+<defs>
+  <pattern id="pise" width="9" height="9" patternUnits="userSpaceOnUse">
+    <rect width="9" height="9" fill="#e8d9c2"/>
+    <circle cx="2" cy="2" r="0.9" fill="#8a6d4a"/><circle cx="6.5" cy="5" r="0.7" fill="#8a6d4a"/>
+    <circle cx="3.5" cy="7.5" r="0.6" fill="#8a6d4a"/>
+  </pattern>
+  <pattern id="isolant" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <rect width="6" height="6" fill="#fdf6d8"/>
+    <line x1="0" y1="0" x2="0" y2="6" stroke="#c9b45e" stroke-width="0.8"/>
+  </pattern>
+  <pattern id="parquet" width="80.0" height="12.0" patternUnits="userSpaceOnUse">
+    <rect width="80.0" height="12.0" fill="#ecd6b3"/>
+    <line x1="0" y1="12.0" x2="80.0" y2="12.0" stroke="#dcc29b" stroke-width="0.8"/>
+    <line x1="30.0" y1="0" x2="30.0" y2="12.0" stroke="#dcc29b" stroke-width="0.8"/>
+  </pattern>
+  <pattern id="carrelage" width="20.0" height="20.0" patternUnits="userSpaceOnUse">
+    <rect width="20.0" height="20.0" fill="#dfe3e6"/>
+    <path d="M0,0 H20.0 M0,0 V20.0" stroke="#c4cacf" stroke-width="0.8"/>
+  </pattern>
+</defs>
+<rect width="1400" height="990" fill="#fff"/>
+<rect x="12" y="12" width="1376" height="966" fill="none" stroke="#111" stroke-width="1.5"/>
+<text x="40" y="44" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="20" font-weight="bold">PLAN RDC — AMÉNAGEMENT</text>
+<polygon points="193.3,510.0 253.3,510.0 253.3,505.3 434.0,505.3 434.0,756.7 753.3,756.7 753.3,183.3 193.3,183.3" fill="url(#parquet)" stroke="none"/>
+<polygon points="258.0,756.7 434.0,756.7 434.0,614.7 258.0,614.7" fill="#e6dccb" stroke="none"/>
+<polygon points="258.0,610.0 324.7,610.0 324.7,510.0 258.0,510.0" fill="url(#carrelage)" stroke="none"/>
+<polygon points="329.3,610.0 429.3,610.0 429.3,510.0 329.3,510.0" fill="url(#carrelage)" stroke="none"/>
+<rect x="193.3" y="183.3" width="240.7" height="322.0" fill="#e9e4dc" stroke="none" opacity="0.55"/>
+<rect x="193.3" y="510.0" width="60.0" height="246.7" fill="#d8b48a" stroke="#111" stroke-width="1"/>
+<line x1="221.3" y1="756.7" x2="253.3" y2="691.3" stroke="#111" stroke-width="0.8"/>
+<line x1="193.3" y1="756.7" x2="253.3" y2="683.3" stroke="#111" stroke-width="0.8"/>
+<line x1="193.3" y1="728.7" x2="253.3" y2="674.0" stroke="#111" stroke-width="0.8"/>
+<line x1="193.3" y1="703.3" x2="253.3" y2="663.3" stroke="#111" stroke-width="0.8"/>
+<line x1="193.3" y1="682.0" x2="253.3" y2="653.3" stroke="#111" stroke-width="0.8"/>
+<line x1="193.3" y1="662.0" x2="253.3" y2="643.3" stroke="#111" stroke-width="0.8"/>
+<line x1="193.3" y1="636.0" x2="253.3" y2="636.0" stroke="#111" stroke-width="0.8"/>
+<line x1="193.3" y1="618.0" x2="253.3" y2="618.0" stroke="#111" stroke-width="0.8"/>
+<line x1="193.3" y1="600.0" x2="253.3" y2="600.0" stroke="#111" stroke-width="0.8"/>
+<line x1="193.3" y1="582.0" x2="253.3" y2="582.0" stroke="#111" stroke-width="0.8"/>
+<line x1="193.3" y1="564.0" x2="253.3" y2="564.0" stroke="#111" stroke-width="0.8"/>
+<line x1="193.3" y1="546.0" x2="253.3" y2="546.0" stroke="#111" stroke-width="0.8"/>
+<line x1="193.3" y1="528.0" x2="253.3" y2="528.0" stroke="#111" stroke-width="0.8"/>
+<text x="245.3" y="728.0" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="6.5" font-weight="normal" text-anchor="middle" fill="#666" >1</text>
+<text x="230.3" y="724.7" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="6.5" font-weight="normal" text-anchor="middle" fill="#666" >2</text>
+<text x="223.3" y="713.3" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="6.5" font-weight="normal" text-anchor="middle" fill="#666" >3</text>
+<text x="223.3" y="695.0" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="6.5" font-weight="normal" text-anchor="middle" fill="#666" >4</text>
+<text x="223.3" y="678.2" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="6.5" font-weight="normal" text-anchor="middle" fill="#666" >5</text>
+<text x="223.3" y="662.8" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="6.5" font-weight="normal" text-anchor="middle" fill="#666" >6</text>
+<text x="246.7" y="647.0" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="6.5" font-weight="normal" text-anchor="middle" fill="#666" >7</text>
+<text x="246.7" y="629.7" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="6.5" font-weight="normal" text-anchor="middle" fill="#666" >8</text>
+<text x="246.7" y="611.7" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="6.5" font-weight="normal" text-anchor="middle" fill="#666" >9</text>
+<text x="246.7" y="593.7" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="6.5" font-weight="normal" text-anchor="middle" fill="#666" >10</text>
+<text x="246.7" y="575.7" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="6.5" font-weight="normal" text-anchor="middle" fill="#666" >11</text>
+<text x="246.7" y="557.7" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="6.5" font-weight="normal" text-anchor="middle" fill="#666" >12</text>
+<text x="246.7" y="539.7" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="6.5" font-weight="normal" text-anchor="middle" fill="#666" >13</text>
+<text x="246.7" y="521.7" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="6.5" font-weight="normal" text-anchor="middle" fill="#666" >14</text>
+<circle cx="250.7" cy="726.7" r="3" fill="#111"/>
+<path d="M250.7,726.7 Q223.3,726.7 223.3,693.3 L223.3,522.3" fill="none" stroke="#111" stroke-width="1.3"/>
+<path d="M223.3,513.3 l-4.5,10 l9,0 Z" fill="#111"/>
+<text x="206.7" y="580.0" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="8.5" font-weight="bold" text-anchor="middle" transform="rotate(-90 206.7 580.0)" fill="#111">ESCALIER ¼ TOURNANT — 15 h</text>
+<text x="233.3" y="526.7" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="9" font-weight="bold" text-anchor="middle" fill="#111" >M</text>
+<line x1="193.3" y1="600.0" x2="253.3" y2="573.3" stroke="#111" stroke-width="1.6"/>
+<line x1="193.3" y1="594.7" x2="253.3" y2="568.0" stroke="#fff" stroke-width="3"/>
+<path fill-rule="evenodd" fill="#a88a66" stroke="#000" stroke-width="1.4" d="M150.0,140.0 h646.7 v660.0 h-646.7 Z M183.3,173.3 h580.0 v593.3 h-580.0 Z"/>
+<path fill-rule="evenodd" fill="#ffffff" stroke="none" d="M183.3,173.3 h580.0 v593.3 h-580.0 Z M185.3,175.3 h576.0 v589.3 h-576.0 Z"/>
+<path fill-rule="evenodd" fill="#f1e3a6" stroke="none" d="M185.3,175.3 h576.0 v589.3 h-576.0 Z M192.5,182.5 h561.7 v575.1 h-561.7 Z"/>
+<path fill-rule="evenodd" fill="#777" stroke="none" d="M192.5,182.5 h561.7 v575.1 h-561.7 Z M193.3,183.3 h560.0 v573.3 h-560.0 Z"/>
+<rect x="253.3" y="505.3" width="4.7" height="191.3" fill="#4a4a4a" stroke="none"/>
+<rect x="258.0" y="610.0" width="176.0" height="4.7" fill="#4a4a4a" stroke="none"/>
+<rect x="258.0" y="505.3" width="176.0" height="4.7" fill="#4a4a4a" stroke="none"/>
+<rect x="324.7" y="510.0" width="4.7" height="100.0" fill="#4a4a4a" stroke="none"/>
+<rect x="429.3" y="510.0" width="4.7" height="100.0" fill="#4a4a4a" stroke="none"/>
+<rect x="266.7" y="610.0" width="46.7" height="4.7" fill="#efe6d8" stroke="none"/>
+<path d="M313.3,610.0 A46.7,46.7 0 0 0 266.7,563.3" fill="none" stroke="#333" stroke-width="0.8" stroke-dasharray="4 3"/>
+<line x1="266.7" y1="610.0" x2="266.7" y2="563.3" stroke="#111" stroke-width="2"/>
+<rect x="366.7" y="610.0" width="53.3" height="4.7" fill="#efe6d8" stroke="none"/>
+<path d="M366.7,610.0 A53.3,53.3 0 0 1 420.0,556.7" fill="none" stroke="#333" stroke-width="0.8" stroke-dasharray="4 3"/>
+<line x1="420.0" y1="610.0" x2="420.0" y2="556.7" stroke="#111" stroke-width="2"/>
+<rect x="300.0" y="756.7" width="60.0" height="43.3" fill="#efe6d8" stroke="none"/>
+<path d="M300.0,756.7 A60.0,60.0 0 0 1 360.0,696.7" fill="none" stroke="#333" stroke-width="0.8" stroke-dasharray="4 3"/>
+<line x1="360.0" y1="756.7" x2="360.0" y2="696.7" stroke="#111" stroke-width="2"/>
+<line x1="300.0" y1="800.0" x2="360.0" y2="800.0" stroke="#111" stroke-width="1.2"/>
+<rect x="753.3" y="336.7" width="43.3" height="266.7" fill="#ffffff" stroke="none"/>
+<line x1="796.7" y1="603.3" x2="796.7" y2="336.7" stroke="#111" stroke-width="0.8"/>
+<line x1="756.7" y1="603.3" x2="756.7" y2="468.0" stroke="#2a6f97" stroke-width="1.6"/>
+<line x1="759.3" y1="603.3" x2="759.3" y2="468.0" stroke="#2a6f97" stroke-width="1.6"/>
+<line x1="756.7" y1="472.0" x2="756.7" y2="336.7" stroke="#2a6f97" stroke-width="1.6"/>
+<line x1="759.3" y1="472.0" x2="759.3" y2="336.7" stroke="#2a6f97" stroke-width="1.6"/>
+<rect x="754.7" y="603.3" width="6.7" height="133.3" fill="#ffffff" stroke="#2a6f97" stroke-width="0.8" stroke-dasharray="4 3"/>
+<rect x="754.7" y="203.3" width="6.7" height="133.3" fill="#ffffff" stroke="#2a6f97" stroke-width="0.8" stroke-dasharray="4 3"/>
+<line x1="745.3" y1="566.7" x2="745.3" y2="596.7" stroke="#2a6f97" stroke-width="1"/>
+<path d="M745.3,596.7 l-3.5,-5.0 l7,0 Z" fill="#2a6f97"/>
+<line x1="745.3" y1="373.3" x2="745.3" y2="343.3" stroke="#2a6f97" stroke-width="1"/>
+<path d="M745.3,343.3 l-3.5,5.0 l7,0 Z" fill="#2a6f97"/>
+<text x="816.7" y="470.0" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="10" font-weight="bold" fill="#2a6f97" text-anchor="middle" transform="rotate(90 816.7 470.0)">BAIE VITRÉE GALANDAGE 4,00 m — JARDIN</text>
+<rect x="510.0" y="563.3" width="193.3" height="113.3" fill="#e9e1d3" stroke="#cbbfa9" stroke-width="0.8" rx="4"/>
+<rect x="486.7" y="686.7" width="240.0" height="63.3" fill="#b9b1a3" stroke="#6d665c" stroke-width="0.9" rx="5"/>
+<rect x="486.7" y="736.7" width="240.0" height="13.3" fill="#9c9487" stroke="#6d665c" stroke-width="0.6" rx="3"/>
+<rect x="486.7" y="686.7" width="13.3" height="63.3" fill="#9c9487" stroke="#6d665c" stroke-width="0.6" rx="3"/>
+<rect x="713.3" y="686.7" width="13.3" height="63.3" fill="#9c9487" stroke="#6d665c" stroke-width="0.6" rx="3"/>
+<line x1="542.7" y1="736.7" x2="542.7" y2="690.0" stroke="#8b8378" stroke-width="0.7"/>
+<line x1="585.3" y1="736.7" x2="585.3" y2="690.0" stroke="#8b8378" stroke-width="0.7"/>
+<line x1="628.0" y1="736.7" x2="628.0" y2="690.0" stroke="#8b8378" stroke-width="0.7"/>
+<line x1="670.7" y1="736.7" x2="670.7" y2="690.0" stroke="#8b8378" stroke-width="0.7"/>
+<rect x="486.7" y="493.3" width="213.3" height="63.3" fill="#a7b3a0" stroke="#6d665c" stroke-width="0.9" rx="5"/>
+<rect x="486.7" y="493.3" width="213.3" height="13.3" fill="#9c9487" stroke="#6d665c" stroke-width="0.6" rx="3"/>
+<rect x="486.7" y="493.3" width="13.3" height="63.3" fill="#9c9487" stroke="#6d665c" stroke-width="0.6" rx="3"/>
+<rect x="686.7" y="493.3" width="13.3" height="63.3" fill="#9c9487" stroke="#6d665c" stroke-width="0.6" rx="3"/>
+<line x1="546.7" y1="553.3" x2="546.7" y2="506.7" stroke="#8b8378" stroke-width="0.7"/>
+<line x1="593.3" y1="553.3" x2="593.3" y2="506.7" stroke="#8b8378" stroke-width="0.7"/>
+<line x1="640.0" y1="553.3" x2="640.0" y2="506.7" stroke="#8b8378" stroke-width="0.7"/>
+<rect x="553.3" y="596.7" width="93.3" height="53.3" fill="#c99c6a" stroke="#6b4f2f" stroke-width="0.8" rx="4"/>
+<circle cx="676.7" cy="646.7" r="14.7" fill="#d9c7a7" stroke="#8a7a5f" stroke-width="0.8"/>
+<circle cx="676.7" cy="596.7" r="14.7" fill="#d9c7a7" stroke="#8a7a5f" stroke-width="0.8"/>
+<circle cx="736.7" cy="670.0" r="8.7" fill="#7f9c74" stroke="#56704d" stroke-width="0.7"/>
+<circle cx="736.7" cy="670.0" r="4.0" fill="#a6bf98"/>
+<rect x="466.7" y="330.0" width="226.7" height="70.0" fill="#c99c6a" stroke="#6b4f2f" stroke-width="1" rx="3"/>
+<rect x="474.3" y="298.3" width="30.0" height="30.0" fill="#e7e2da" stroke="#666" stroke-width="0.8" rx="3"/>
+<rect x="474.3" y="298.3" width="30.0" height="4.0" fill="#9a8f80" stroke="none"/>
+<rect x="474.3" y="401.7" width="30.0" height="30.0" fill="#e7e2da" stroke="#666" stroke-width="0.8" rx="3"/>
+<rect x="474.3" y="427.7" width="30.0" height="4.0" fill="#9a8f80" stroke="none"/>
+<rect x="519.7" y="298.3" width="30.0" height="30.0" fill="#e7e2da" stroke="#666" stroke-width="0.8" rx="3"/>
+<rect x="519.7" y="298.3" width="30.0" height="4.0" fill="#9a8f80" stroke="none"/>
+<rect x="519.7" y="401.7" width="30.0" height="30.0" fill="#e7e2da" stroke="#666" stroke-width="0.8" rx="3"/>
+<rect x="519.7" y="427.7" width="30.0" height="4.0" fill="#9a8f80" stroke="none"/>
+<rect x="565.0" y="298.3" width="30.0" height="30.0" fill="#e7e2da" stroke="#666" stroke-width="0.8" rx="3"/>
+<rect x="565.0" y="298.3" width="30.0" height="4.0" fill="#9a8f80" stroke="none"/>
+<rect x="565.0" y="401.7" width="30.0" height="30.0" fill="#e7e2da" stroke="#666" stroke-width="0.8" rx="3"/>
+<rect x="565.0" y="427.7" width="30.0" height="4.0" fill="#9a8f80" stroke="none"/>
+<rect x="610.3" y="298.3" width="30.0" height="30.0" fill="#e7e2da" stroke="#666" stroke-width="0.8" rx="3"/>
+<rect x="610.3" y="298.3" width="30.0" height="4.0" fill="#9a8f80" stroke="none"/>
+<rect x="610.3" y="401.7" width="30.0" height="30.0" fill="#e7e2da" stroke="#666" stroke-width="0.8" rx="3"/>
+<rect x="610.3" y="427.7" width="30.0" height="4.0" fill="#9a8f80" stroke="none"/>
+<rect x="655.7" y="298.3" width="30.0" height="30.0" fill="#e7e2da" stroke="#666" stroke-width="0.8" rx="3"/>
+<rect x="655.7" y="298.3" width="30.0" height="4.0" fill="#9a8f80" stroke="none"/>
+<rect x="655.7" y="401.7" width="30.0" height="30.0" fill="#e7e2da" stroke="#666" stroke-width="0.8" rx="3"/>
+<rect x="655.7" y="427.7" width="30.0" height="4.0" fill="#9a8f80" stroke="none"/>
+<rect x="433.7" y="350.0" width="30.0" height="30.0" fill="#e7e2da" stroke="#666" stroke-width="0.8" rx="3"/>
+<rect x="433.7" y="350.0" width="4.0" height="30.0" fill="#9a8f80" stroke="none"/>
+<rect x="696.3" y="350.0" width="30.0" height="30.0" fill="#e7e2da" stroke="#666" stroke-width="0.8" rx="3"/>
+<rect x="722.3" y="350.0" width="4.0" height="30.0" fill="#9a8f80" stroke="none"/>
+<circle cx="523.3" cy="365.0" r="8.0" fill="none" stroke="#b08d57" stroke-width="0.8" stroke-dasharray="2 2"/>
+<circle cx="580.0" cy="365.0" r="8.0" fill="none" stroke="#b08d57" stroke-width="0.8" stroke-dasharray="2 2"/>
+<circle cx="636.7" cy="365.0" r="8.0" fill="none" stroke="#b08d57" stroke-width="0.8" stroke-dasharray="2 2"/>
+<rect x="193.3" y="183.3" width="240.0" height="43.3" fill="#d6d9dc" stroke="#555" stroke-width="0.9"/>
+<rect x="193.3" y="226.7" width="43.3" height="223.3" fill="#d6d9dc" stroke="#555" stroke-width="0.9"/>
+<rect x="193.3" y="406.7" width="43.3" height="43.3" fill="#eef0f2" stroke="#555" stroke-width="0.9"/>
+<rect x="193.3" y="366.7" width="43.3" height="40.0" fill="#eef0f2" stroke="#555" stroke-width="0.9"/>
+<text x="215.3" y="431.3" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="7" font-weight="normal" text-anchor="middle" fill="#555" >frigo</text>
+<text x="215.3" y="390.0" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="7" font-weight="normal" text-anchor="middle" fill="#555" >four</text>
+<rect x="198.7" y="316.7" width="31.3" height="26.7" fill="#fff" stroke="#555" stroke-width="0.7" rx="2"/>
+<rect x="198.7" y="286.7" width="31.3" height="26.7" fill="#fff" stroke="#555" stroke-width="0.7" rx="2"/>
+<rect x="313.3" y="188.0" width="50.0" height="34.0" fill="#333" stroke="#111" stroke-width="0.7" rx="2"/>
+<circle cx="325.3" cy="196.7" r="6.0" fill="none" stroke="#bbb" stroke-width="0.7"/>
+<circle cx="351.3" cy="196.7" r="6.0" fill="none" stroke="#bbb" stroke-width="0.7"/>
+<circle cx="325.3" cy="213.3" r="6.0" fill="none" stroke="#bbb" stroke-width="0.7"/>
+<circle cx="351.3" cy="213.3" r="6.0" fill="none" stroke="#bbb" stroke-width="0.7"/>
+<rect x="293.3" y="290.0" width="120.0" height="56.7" fill="#e9e4dc" stroke="#555" stroke-width="1" rx="2"/>
+<circle cx="316.7" cy="364.7" r="11.3" fill="#c99c6a" stroke="#6b4f2f" stroke-width="0.7"/>
+<circle cx="353.3" cy="364.7" r="11.3" fill="#c99c6a" stroke="#6b4f2f" stroke-width="0.7"/>
+<circle cx="390.0" cy="364.7" r="11.3" fill="#c99c6a" stroke="#6b4f2f" stroke-width="0.7"/>
+<rect x="394.0" y="676.7" width="40.0" height="80.0" fill="#f3efe8" stroke="#555" stroke-width="0.9"/>
+<line x1="414.0" y1="753.3" x2="414.0" y2="680.0" stroke="#999" stroke-width="0.6" stroke-dasharray="2 2"/>
+<line x1="406.0" y1="748.7" x2="422.0" y2="744.7" stroke="#b5aa98" stroke-width="0.6"/>
+<line x1="406.0" y1="740.7" x2="422.0" y2="736.7" stroke="#b5aa98" stroke-width="0.6"/>
+<line x1="406.0" y1="732.7" x2="422.0" y2="728.7" stroke="#b5aa98" stroke-width="0.6"/>
+<line x1="406.0" y1="724.7" x2="422.0" y2="720.7" stroke="#b5aa98" stroke-width="0.6"/>
+<line x1="406.0" y1="716.7" x2="422.0" y2="712.7" stroke="#b5aa98" stroke-width="0.6"/>
+<line x1="406.0" y1="708.7" x2="422.0" y2="704.7" stroke="#b5aa98" stroke-width="0.6"/>
+<line x1="406.0" y1="700.7" x2="422.0" y2="696.7" stroke="#b5aa98" stroke-width="0.6"/>
+<line x1="406.0" y1="692.7" x2="422.0" y2="688.7" stroke="#b5aa98" stroke-width="0.6"/>
+<line x1="406.0" y1="684.7" x2="422.0" y2="680.7" stroke="#b5aa98" stroke-width="0.6"/>
+<rect x="258.0" y="626.7" width="55.3" height="26.7" fill="#c99c6a" stroke="#6b4f2f" stroke-width="0.7"/>
+<text x="285.3" y="643.3" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="7" font-weight="normal" text-anchor="middle" fill="#fff" >banc</text>
+<rect x="276.7" y="510.0" width="29.3" height="12.0" fill="#fff" stroke="#555" stroke-width="0.9"/>
+<ellipse cx="291.3" cy="534.7" rx="11.3" ry="13.3" fill="#fff" stroke="#555" stroke-width="0.9"/>
+<rect x="311.3" y="536.7" width="13.3" height="23.3" fill="#fff" stroke="#555" stroke-width="0.8" rx="2"/>
+<rect x="333.3" y="511.3" width="40.0" height="40.0" fill="#fff" stroke="#555" stroke-width="0.9" rx="2"/>
+<circle cx="353.3" cy="531.3" r="13.3" fill="#eef5f8" stroke="#777" stroke-width="0.7"/>
+<rect x="376.7" y="511.3" width="40.0" height="40.0" fill="#fff" stroke="#555" stroke-width="0.9" rx="2"/>
+<circle cx="396.7" cy="531.3" r="13.3" fill="#eef5f8" stroke="#777" stroke-width="0.7"/>
+<circle cx="348.7" cy="590.0" r="18.0" fill="#f4f4f4" stroke="#555" stroke-width="0.9"/>
+<text x="348.7" y="592.0" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="7" font-weight="normal" text-anchor="middle" fill="#555" >ECS</text>
+<text x="600.0" y="582.0" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#111" paint-order="stroke" stroke="#ffffff" stroke-width="3" stroke-linejoin="round">SALON</text>
+<text x="580.0" y="273.3" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#111" paint-order="stroke" stroke="#ffffff" stroke-width="3" stroke-linejoin="round">SALLE À MANGER</text>
+<text x="580.0" y="288.0" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="9" font-weight="normal" text-anchor="middle" fill="#555" paint-order="stroke" stroke="#ffffff" stroke-width="3" stroke-linejoin="round">12 couverts</text>
+<text x="353.3" y="403.3" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#111" paint-order="stroke" stroke="#ffffff" stroke-width="3" stroke-linejoin="round">CUISINE</text>
+<text x="353.3" y="418.0" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="9" font-weight="normal" text-anchor="middle" fill="#555" paint-order="stroke" stroke="#ffffff" stroke-width="3" stroke-linejoin="round">en L + îlot</text>
+<text x="330.0" y="660.0" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#111" paint-order="stroke" stroke="#ffffff" stroke-width="3" stroke-linejoin="round">ENTRÉE</text>
+<text x="330.0" y="673.3" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="11" font-weight="normal" text-anchor="middle" fill="#111" paint-order="stroke" stroke="#ffffff" stroke-width="3" stroke-linejoin="round">5,6 m²</text>
+<text x="291.3" y="582.0" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#111" paint-order="stroke" stroke="#ffffff" stroke-width="3" stroke-linejoin="round">WC</text>
+<text x="291.3" y="595.3" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="9" font-weight="normal" text-anchor="middle" fill="#111" paint-order="stroke" stroke="#ffffff" stroke-width="3" stroke-linejoin="round">1,5 m²</text>
+<text x="390.0" y="582.0" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#111" paint-order="stroke" stroke="#ffffff" stroke-width="3" stroke-linejoin="round">CELLIER</text>
+<text x="390.0" y="595.3" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="9" font-weight="normal" text-anchor="middle" fill="#111" paint-order="stroke" stroke="#ffffff" stroke-width="3" stroke-linejoin="round">2,3 m²</text>
+<line x1="175.3" y1="840.0" x2="771.3" y2="840.0" stroke="#111" stroke-width="0.7"/>
+<line x1="183.3" y1="804.0" x2="183.3" y2="846.0" stroke="#999" stroke-width="0.4"/>
+<line x1="179.3" y1="844.0" x2="187.3" y2="836.0" stroke="#111" stroke-width="1.2"/>
+<line x1="763.3" y1="804.0" x2="763.3" y2="846.0" stroke="#999" stroke-width="0.4"/>
+<line x1="759.3" y1="844.0" x2="767.3" y2="836.0" stroke="#111" stroke-width="1.2"/>
+<text x="473.3" y="836.0" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#111">8,70</text>
+<line x1="110.0" y1="774.7" x2="110.0" y2="165.3" stroke="#111" stroke-width="0.7"/>
+<line x1="146.0" y1="766.7" x2="104.0" y2="766.7" stroke="#999" stroke-width="0.4"/>
+<line x1="106.0" y1="770.7" x2="114.0" y2="762.7" stroke="#111" stroke-width="1.2"/>
+<line x1="146.0" y1="173.3" x2="104.0" y2="173.3" stroke="#999" stroke-width="0.4"/>
+<line x1="106.0" y1="177.3" x2="114.0" y2="169.3" stroke="#111" stroke-width="1.2"/>
+<text x="106.0" y="470.0" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#111" transform="rotate(-90 106.0 470.0)">8,90</text>
+<text x="330.0" y="821.3" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#444" >Entrée ↑</text>
+<text x="820.0" y="163.3" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="start" fill="#5d7f4f" >JARDIN</text>
+<g transform="translate(965,90)"><circle r="24" fill="#fff" stroke="#111" stroke-width="1.2"/><path d="M0,-20 L8,12 L0,5 Z" fill="#111"/><path d="M0,-20 L-8,12 L0,5 Z" fill="#fff" stroke="#111"/><text y="-29" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">N</text></g>
+<g transform="translate(150,938)"><rect x="0.0" y="0" width="66.7" height="7" fill="#111" stroke="#111" stroke-width="0.8"/><rect x="66.7" y="0" width="66.7" height="7" fill="#fff" stroke="#111" stroke-width="0.8"/><rect x="133.3" y="0" width="66.7" height="7" fill="#111" stroke="#111" stroke-width="0.8"/><rect x="200.0" y="0" width="66.7" height="7" fill="#fff" stroke="#111" stroke-width="0.8"/><rect x="266.7" y="0" width="66.7" height="7" fill="#111" stroke="#111" stroke-width="0.8"/><text x="0.0" y="21" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="10" text-anchor="middle">0</text><text x="66.7" y="21" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="10" text-anchor="middle">1</text><text x="133.3" y="21" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="10" text-anchor="middle">2</text><text x="200.0" y="21" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="10" text-anchor="middle">3</text><text x="266.7" y="21" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="10" text-anchor="middle">4</text><text x="333.3" y="21" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="10" text-anchor="middle">5</text><text x="345.3" y="21" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="10">m</text></g>
+<rect x="1040" y="40" width="330" height="910" fill="#fff" stroke="#111" stroke-width="1.2"/>
+<text x="1058" y="72" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="17" font-weight="bold">TABLEAU DES SURFACES</text>
+<text x="1058" y="100" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="12.5">Pièce de vie (cuisine, séjour, salon)</text>
+<text x="1352" y="100" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="12.5" text-anchor="end">58,6 m²</text>
+<line x1="1058" y1="107" x2="1352" y2="107" stroke="#ddd" stroke-width="0.7"/>
+<text x="1058" y="123" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="12.5">Entrée (dont placard)</text>
+<text x="1352" y="123" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="12.5" text-anchor="end">5,6 m²</text>
+<line x1="1058" y1="130" x2="1352" y2="130" stroke="#ddd" stroke-width="0.7"/>
+<text x="1058" y="146" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="12.5">WC</text>
+<text x="1352" y="146" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="12.5" text-anchor="end">1,5 m²</text>
+<line x1="1058" y1="153" x2="1352" y2="153" stroke="#ddd" stroke-width="0.7"/>
+<text x="1058" y="169" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="12.5">Cellier / buanderie</text>
+<text x="1352" y="169" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="12.5" text-anchor="end">2,3 m²</text>
+<line x1="1058" y1="176" x2="1352" y2="176" stroke="#ddd" stroke-width="0.7"/>
+<text x="1058" y="192" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="12.5">Escalier (emprise)</text>
+<text x="1352" y="192" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="12.5" text-anchor="end">3,3 m²</text>
+<line x1="1058" y1="199" x2="1352" y2="199" stroke="#ddd" stroke-width="0.7"/>
+<text x="1058" y="219" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="bold">Total pièces (fini)</text>
+<text x="1352" y="219" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="end">71,3 m²</text>
+<text x="1058" y="239" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="11" fill="#444">Plateau murs nus 8,70 × 8,90 = 77,4 m²</text>
+<text x="1058" y="255" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="11" fill="#444">Intérieur fini (doublage 15) 8,40 × 8,60 = 72,2 m²</text>
+<line x1="1040" y1="271" x2="1370" y2="271" stroke="#111" stroke-width="1"/>
+<text x="1058" y="293" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="15" font-weight="bold">NOTES</text>
+<text x="1058" y="315" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="11" fill="#222">Murs pisé ≈ 50 cm + doublage 15 cm (lame</text>
+<text x="1058" y="331" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="11" fill="#222">d'air + isolant perspirant), comme à l'étage.</text>
+<text x="1058" y="347" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="11" fill="#222">Baie vitrée 4,00 m à galandage, mur Est</text>
+<text x="1058" y="363" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="11" fill="#222">(jardin) : 2 vantaux de 2,00 m dans les murs.</text>
+<text x="1058" y="379" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="11" fill="#222">Ouverture 4 m dans le pisé : linteau béton ou</text>
+<text x="1058" y="395" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="11" fill="#222">acier, étude BET obligatoire. Repli : 3,00 m.</text>
+<text x="1058" y="411" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="11" fill="#222">Caissons : doublage épaissi local (≈ 20 cm).</text>
+<text x="1058" y="427" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="11" fill="#222">Escalier identique à l'étage (¼ tournant bas).</text>
+<text x="1058" y="443" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="11" fill="#222">Salon 10-12 pl. : canapés 3,60 + 3,20 + poufs.</text>
+<text x="1058" y="459" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="11" fill="#222">Table 3,40 × 1,05 : 12 couverts (5 + 5 + 2).</text>
+<text x="1058" y="475" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="11" fill="#222">Cuisine en L + îlot ; évier sous la chute Ouest.</text>
+<text x="1058" y="491" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="11" fill="#222">WC + cellier sous la SdE 3 (chute commune).</text>
+<text x="1058" y="507" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="11" fill="#222">Entrée au Sud (position à confirmer) ; autres</text>
+<text x="1058" y="523" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="11" fill="#222">ouvertures à reporter selon l'existant.</text>
+<rect x="1040" y="800" width="330" height="150" fill="#f6f6f4" stroke="#111" stroke-width="1.2"/>
+<text x="1058" y="826" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="11" fill="#555">PROJET</text>
+<text x="1058" y="846" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="14" font-weight="bold">La Marinka — Rez-de-chaussée (77 m²)</text>
+<text x="1058" y="864" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="12">Séjour 12 pers. + cuisine + baie jardin</text>
+<line x1="1040" y1="876" x2="1370" y2="876" stroke="#111"/>
+<text x="1058" y="898" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="15" font-weight="bold">PLAN RDC — AMÉNAGEMENT</text>
+<line x1="1040" y1="912" x2="1370" y2="912" stroke="#111"/>
+<line x1="1150" y1="912" x2="1150" y2="950" stroke="#111"/>
+<line x1="1260" y1="912" x2="1260" y2="950" stroke="#111"/>
+<text x="1050" y="926" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="9" fill="#555">ÉCHELLE</text>
+<text x="1050" y="943" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold">1/50 (A3)</text>
+<text x="1160" y="926" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="9" fill="#555">DATE</text>
+<text x="1160" y="943" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold">04/10/2026</text>
+<text x="1270" y="926" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="9" fill="#555">INDICE</text>
+<text x="1270" y="943" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold">A — esquisse</text>
+<line x1="1040" y1="702" x2="1370" y2="702" stroke="#111" stroke-width="1"/>
+<rect x="1058" y="718" width="30" height="12" fill="#a88a66" stroke="#000"/>
+<text x="1094" y="728" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="10.5">Mur pisé existant</text>
+<rect x="1216" y="718" width="30" height="12" fill="#f1e3a6" stroke="#777"/><rect x="1216" y="718" width="5" height="12" fill="#fff" stroke="#777" stroke-width="0.5"/>
+<text x="1252" y="728" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="10.5">Doublage 15 (lame d'air)</text>
+<rect x="1058" y="745" width="30" height="6" fill="#555"/>
+<text x="1094" y="752" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="10.5">Cloison neuve 7 cm</text>
+<rect x="1216" y="743" width="30" height="10" fill="#fff" stroke="#000"/><line x1="1216" y1="747" x2="1246" y2="747" stroke="#2a6f97" stroke-width="1.2"/><line x1="1216" y1="749" x2="1246" y2="749" stroke="#2a6f97" stroke-width="1.2"/>
+<text x="1252" y="752" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="10.5">Baie vitrée galandage</text>
+<line x1="1058" y1="780" x2="1058" y2="762" stroke="#111" stroke-width="2"/><path d="M1058,762 A18,18 0 0 1 1076,780" fill="none" stroke="#333" stroke-dasharray="3 2"/>
+<text x="1094" y="776" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="10.5">Porte (P = passage)</text>
+<rect x="1216" y="767" width="30" height="10" fill="#fff" stroke="#000" stroke-dasharray="3 2"/>
+<text x="1252" y="776" font-family="Liberation Sans, Helvetica, Arial, sans-serif" font-size="10.5">Caisson galandage</text>
+</svg>

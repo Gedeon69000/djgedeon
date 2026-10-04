@@ -525,42 +525,52 @@ SURFACES = [
 ]
 
 
-def panneau(titre_plan):
+PROJET = "La Marinka — Étage (77 m²)"
+SOUS_TITRE = "4 chambres + 4 salles d'eau + WC indépendant"
+INDICE = "E — esquisse"
+TOTAL = "68,8 m²"
+
+
+NOTES = [
+    "Murs en pisé ≈ 50 cm (épaisseur à relever).",
+    "Doublage 15 cm : lame d'air 3 cm + isolant",
+    "perspirant (fibre de bois) 10 cm + frein-vapeur",
+    "hygrovariable + placo 13 mm. Pas de pare-",
+    "vapeur étanche : le pisé doit respirer.",
+    "Cloisons 7 cm (placo 72/48 + laine).",
+    "Escalier ¼ tournant bas le long du mur Ouest :",
+    "15 h ≈ 19 cm, giron 27 cm, emmarchement 0,90.",
+    "Trémie 0,90 × 3,70 : avis structure / BET.",
+    "Velux : chambres + dégagement uniquement.",
+    "SdE et WC sans Velux : VMC hygro obligatoire.",
+    "SdE en longueur 1,25 × 2,40 : douche 120×80",
+    "au fond, vasque 75, sèche-serviettes.",
+    "SdE 1 et 2 : portes à galandage (cloison 10).",
+    "Velux en « dé de 5 », alignés et symétriques.",
+    "Faîtage E-O ; zones < 1,80 m hors Carrez.",
+]
+
+
+def panneau(titre_plan, surfaces=None, notes=None, total=None, projet=None, sous_titre=None, indice=None):
+    surfaces = SURFACES if surfaces is None else surfaces
     x0 = 1040
     o = []
     o.append(f'<rect x="{x0}" y="40" width="330" height="910" fill="#fff" stroke="#111" stroke-width="1.2"/>')
     o.append(f'<text x="{x0 + 18}" y="72" font-family="{FONT}" font-size="17" font-weight="bold">TABLEAU DES SURFACES</text>')
     yy = 100
-    for nom, s in SURFACES:
+    for nom, s in surfaces:
         o.append(f'<text x="{x0 + 18}" y="{yy}" font-family="{FONT}" font-size="12.5">{nom}</text>')
         o.append(f'<text x="{x0 + 312}" y="{yy}" font-family="{FONT}" font-size="12.5" text-anchor="end">{s} m²</text>')
         o.append(f'<line x1="{x0 + 18}" y1="{yy + 7}" x2="{x0 + 312}" y2="{yy + 7}" stroke="#ddd" stroke-width="0.7"/>')
         yy += 23
     o.append(f'<text x="{x0 + 18}" y="{yy + 4}" font-family="{FONT}" font-size="13" font-weight="bold">Total pièces (fini)</text>')
-    o.append(f'<text x="{x0 + 312}" y="{yy + 4}" font-family="{FONT}" font-size="13" font-weight="bold" text-anchor="end">68,8 m²</text>')
+    o.append(f'<text x="{x0 + 312}" y="{yy + 4}" font-family="{FONT}" font-size="13" font-weight="bold" text-anchor="end">{total or TOTAL}</text>')
     o.append(f'<text x="{x0 + 18}" y="{yy + 24}" font-family="{FONT}" font-size="11" fill="#444">Plateau murs nus 8,70 × 8,90 = 77,4 m²</text>')
     o.append(f'<text x="{x0 + 18}" y="{yy + 40}" font-family="{FONT}" font-size="11" fill="#444">Intérieur fini (doublage 15) 8,40 × 8,60 = 72,2 m²</text>')
     yy += 70
     o.append(f'<line x1="{x0}" y1="{yy - 14}" x2="{x0 + 330}" y2="{yy - 14}" stroke="#111" stroke-width="1"/>')
     o.append(f'<text x="{x0 + 18}" y="{yy + 8}" font-family="{FONT}" font-size="15" font-weight="bold">NOTES</text>')
-    notes = [
-        "Murs en pisé ≈ 50 cm (épaisseur à relever).",
-        "Doublage 15 cm : lame d'air 3 cm + isolant",
-        "perspirant (fibre de bois) 10 cm + frein-vapeur",
-        "hygrovariable + placo 13 mm. Pas de pare-",
-        "vapeur étanche : le pisé doit respirer.",
-        "Cloisons 7 cm (placo 72/48 + laine).",
-        "Escalier ¼ tournant bas le long du mur Ouest :",
-        "15 h ≈ 19 cm, giron 27 cm, emmarchement 0,90.",
-        "Trémie 0,90 × 3,70 : avis structure / BET.",
-        "Velux : chambres + dégagement uniquement.",
-        "SdE et WC sans Velux : VMC hygro obligatoire.",
-        "SdE en longueur 1,25 × 2,40 : douche 120×80",
-        "au fond, vasque 75, sèche-serviettes.",
-        "SdE 1 et 2 : portes à galandage (cloison 10).",
-        "Velux en « dé de 5 », alignés et symétriques.",
-        "Faîtage E-O ; zones < 1,80 m hors Carrez.",
-    ]
+    notes = NOTES if notes is None else notes
     yy += 30
     for n in notes:
         o.append(f'<text x="{x0 + 18}" y="{yy}" font-family="{FONT}" font-size="11" fill="#222">{n}</text>')
@@ -568,26 +578,29 @@ def panneau(titre_plan):
     cy = 800
     o.append(f'<rect x="{x0}" y="{cy}" width="330" height="150" fill="#f6f6f4" stroke="#111" stroke-width="1.2"/>')
     o.append(f'<text x="{x0 + 18}" y="{cy + 26}" font-family="{FONT}" font-size="11" fill="#555">PROJET</text>')
-    o.append(f'<text x="{x0 + 18}" y="{cy + 46}" font-family="{FONT}" font-size="14" font-weight="bold">Réaménagement de l\'étage — 77 m²</text>')
-    o.append(f'<text x="{x0 + 18}" y="{cy + 64}" font-family="{FONT}" font-size="12">4 chambres + 4 salles d\'eau + WC indépendant</text>')
+    o.append(f'<text x="{x0 + 18}" y="{cy + 46}" font-family="{FONT}" font-size="14" font-weight="bold">{projet or PROJET}</text>')
+    o.append(f'<text x="{x0 + 18}" y="{cy + 64}" font-family="{FONT}" font-size="12">{sous_titre or SOUS_TITRE}</text>')
     o.append(f'<line x1="{x0}" y1="{cy + 76}" x2="{x0 + 330}" y2="{cy + 76}" stroke="#111"/>')
     o.append(f'<text x="{x0 + 18}" y="{cy + 98}" font-family="{FONT}" font-size="15" font-weight="bold">{titre_plan}</text>')
     o.append(f'<line x1="{x0}" y1="{cy + 112}" x2="{x0 + 330}" y2="{cy + 112}" stroke="#111"/>')
     o.append(f'<line x1="{x0 + 110}" y1="{cy + 112}" x2="{x0 + 110}" y2="{cy + 150}" stroke="#111"/>')
     o.append(f'<line x1="{x0 + 220}" y1="{cy + 112}" x2="{x0 + 220}" y2="{cy + 150}" stroke="#111"/>')
-    for i, (k, v) in enumerate([("ÉCHELLE", "1/50 (A3)"), ("DATE", "04/10/2026"), ("INDICE", "E — esquisse")]):
+    for i, (k, v) in enumerate([("ÉCHELLE", "1/50 (A3)"), ("DATE", "04/10/2026"), ("INDICE", indice or INDICE)]):
         o.append(f'<text x="{x0 + 10 + i * 110}" y="{cy + 126}" font-family="{FONT}" font-size="9" fill="#555">{k}</text>')
         o.append(f'<text x="{x0 + 10 + i * 110}" y="{cy + 143}" font-family="{FONT}" font-size="12" font-weight="bold">{v}</text>')
     return o
 
 
-def legende(mode):
+LEGENDE = [("pise", "Mur pisé existant"), ("dbl", "Doublage 15 (lame d'air)"),
+           ("cl", "Cloison neuve 7 cm"), ("vel", "Velux (projection)"),
+           ("porte", "Porte (P = passage)"), ("faite", "Faîtage supposé")]
+
+
+def legende(mode, items=None):
+    items = LEGENDE if items is None else items
     o = []
     x0, y = 1058, 718
     o.append(f'<line x1="1040" y1="{y - 16}" x2="1370" y2="{y - 16}" stroke="#111" stroke-width="1"/>')
-    items = [("pise", "Mur pisé existant"), ("dbl", "Doublage 15 (lame d'air)"),
-             ("cl", "Cloison neuve 7 cm"), ("vel", "Velux (projection)"),
-             ("porte", "Porte (P = passage)"), ("faite", "Faîtage supposé")]
     for idx, (k, t) in enumerate(items):
         x = x0 + (idx % 2) * 158
         yy = y + (idx // 2) * 24
@@ -604,6 +617,12 @@ def legende(mode):
         elif k == "porte":
             o.append(f'<line x1="{x}" y1="{yy + 14}" x2="{x}" y2="{yy - 4}" stroke="#111" stroke-width="2"/>'
                      f'<path d="M{x},{yy - 4} A18,18 0 0 1 {x + 18},{yy + 14}" fill="none" stroke="#333" stroke-dasharray="3 2"/>')
+        elif k == "baie":
+            o.append(f'<rect x="{x}" y="{yy + 1}" width="30" height="10" fill="#fff" stroke="#000"/>'
+                     f'<line x1="{x}" y1="{yy + 5}" x2="{x + 30}" y2="{yy + 5}" stroke="#2a6f97" stroke-width="1.2"/>'
+                     f'<line x1="{x}" y1="{yy + 7}" x2="{x + 30}" y2="{yy + 7}" stroke="#2a6f97" stroke-width="1.2"/>')
+        elif k == "fen":
+            o.append(f'<rect x="{x}" y="{yy + 1}" width="30" height="10" fill="#fff" stroke="#000" stroke-dasharray="3 2"/>')
         else:
             o.append(f'<line x1="{x}" y1="{yy + 6}" x2="{x + 30}" y2="{yy + 6}" stroke="#1f5f8b" stroke-dasharray="8 3 2 3"/>')
         o.append(f'<text x="{x + 36}" y="{yy + 10}" font-family="{FONT}" font-size="10.5">{t}</text>')
