@@ -49,6 +49,9 @@ hors = [
     ("Raccordements eau / électricité / assainissement individuel", 8000, 15000, "Selon raccordement existant de la grange."),
     ("Renfort du plancher / chape", 5000, 12000, "Si le plancher de l'étage est insuffisant."),
     ("Taxe d'aménagement + dossier changement de destination", 2000, 5000, "Selon taux communal et départemental."),
+    ("Mise à niveau de l'assainissement (microstation 5 EH → 7 EH mini)", 10000, 15000, "Promesse : OXYFIX C-90 5 EH pour 3 pièces principales ; 6 chambres = 7 EH. Étude + accord SPANC."),
+    ("Électricité de la maison existante (anomalies au diagnostic)", 6000, 10000, "Diagnostic 09/2025 : différentiel, terre, SdB, matériel vétuste."),
+    ("Désamiantage conduit en cave (si touché)", 1000, 3000, "Repérage amiante 09/2025 : conduit de fluides, évaluation périodique."),
 ]
 for i, (p, mn, mx, com) in enumerate(hors, start=11):
     ps[f"A{i}"] = p; ps[f"A{i}"].font = BLACK
@@ -359,10 +362,11 @@ entete(r, ["Paramètre", "Valeur", "Commentaire"]); r += 1
 HYP = {}
 for lab, val, fmt, com in [
     ("Surface habitable finale (m²)", 232, "0", "90 m² maison + 72 m² RDC grange + 69 m² étage ; l'étage sous rampant peut descendre à 55-62 m² légaux."),
-    ("Terrain (m²)", 1700, "0", "Norme haute du secteur rural."),
+    ("Terrain (m²)", 1987, "0", "Cadastre B1861+1860 = 1 487 m² d'un seul tenant autour de la maison ; B1160+1163 = 500 m² détachés de l'autre côté de l'impasse (servitude d'écoulement)."),
     ("Prix d'achat frais de notaire compris (€)", 200000, EUR, "Donnée fournie."),
     ("Extérieurs hors budget travaux (€) : piscine, jacuzzi, pergola, paysager, irrigation", 85000, EUR, "Hypothèse centrale (60 à 110 k€) : non chiffrés dans les onglets travaux."),
-    ("Grange indépendante : surface utile (m²)", 500, "0", "≈ 300 m² au sol + 200 m² en R+1, toiture neuve, dalle béton. Non habitable."),
+    ("Grange attenante, partie non aménagée : surface utile (m²)", 500, "0", "≈ 300 m² au sol + 200 m² à l'étage (écuries, granges, combles). Sol terre battue, plafonds paille ; 70 m² de toiture refaits en 2024 seulement. Non habitable."),
+    ("DPE maison existante", "E (258 kWh/m².an) — GES B", "@", "Diagnostic 09/2025 ; audit 2023 : G avant isolation des combles et poêle."),
 ]:
     ecrire(r, [lab, val, com], fonts={2: BLUE}, fmts={2: fmt}); HYP[lab.split(" (")[0]] = r; r += 1
 R_SURF, R_ACHAT, R_EXT = HYP["Surface habitable finale"], HYP["Prix d'achat frais de notaire compris"], HYP["Extérieurs hors budget travaux"]
@@ -402,6 +406,8 @@ for row in [
 ]:
     ecrire(r, list(row), fmts={8: EUR, 9: '#,##0 "€/m²";;"n.c."'}); r += 1
 ev.cell(r, 1, "Aucune vente réelle documentée > 500 000 € dans la commune ni dans les communes limitrophes.").font = ITAL; r += 1
+ev.cell(r, 1, "Points relevés dans la promesse de vente (10/2025) : mitoyenneté avec la parcelle voisine dont le propriétaire envisage une démolition ; servitude d'eau (bélier hydraulique) ; "
+              "absence de puits déclaré ; sismicité 3/5 ; commune en zone inondation (CatNat 1982-1993).").font = ITAL; r += 1
 
 # --- 4. Construction de la valeur
 r += 1
@@ -416,7 +422,7 @@ for lab, lo, mid, hi, why in [
     ("Calme absolu (impasse de 3 maisons)", 10000, 15000, 20000, "Prime réelle mais fréquente en secteur rural."),
     ("Puits fonctionnel + irrigation du jardin", 5000, 7500, 10000, "Utile sur 1 700 m² ; usage limitable par arrêtés sécheresse."),
     ("Façades neuves (enduit chaux)", 10000, 12500, 15000, "Évite la décote « ravalement à prévoir »."),
-    ("Grange indépendante ≈ 500 m² utiles", 40000, 65000, 100000, "80-200 €/m² utile ; acheteurs ciblés (collectionneur, artisan)."),
+    ("Partie non aménagée de la grange ≈ 500 m² utiles (sol terre, pas de dalle)", 25000, 45000, 70000, "50-140 €/m² utile en l'état ; +20 à +30 k€ si dalle béton et toiture complète. Acheteurs ciblés."),
     ("Ajustement plafond de marché local / délai", -25000, -30000, -66000, "Bien au sommet du marché local : peu d'acheteurs, négociation 5-10 %."),
 ]:
     ecrire(r, [lab, lo, mid, hi, why], fonts={2: BLUE, 3: BLUE, 4: BLUE}, fmts={2: EUR, 3: EUR, 4: EUR}); r += 1
@@ -437,7 +443,7 @@ entete(r, ["Scénario", "Prix €", "€/m² habitable", "€/m² hors grange", 
 s0 = r
 for lab, prix, delai, com in [
     ("Vente rapide", f"=B{R_VAL}", "< 3 mois", ""),
-    ("Valeur de marché réaliste", 580000, "6 à 9 mois", "Fourchette réaliste 570-600 k€."),
+    ("Valeur de marché réaliste", f"=C{R_VAL}", "6 à 9 mois", "= valeur centrale ; fourchette ± 15 k€."),
     ("Annonce ambitieuse mais défendable", f"=D{R_VAL}", "9 à 18 mois", "Négociation probable vers 590-600 k€."),
     ("VALEUR CENTRALE RETENUE", f"=C{R_VAL}", "", "Maison ≈ 515 k€ + calme / puits / façades + grange ≈ 65 k€, après plafond de marché."),
 ]:
@@ -469,7 +475,7 @@ entete(r, ["Élément", "Montant €", "Source"]); r += 1
 k0 = r
 ecrire(r, ["Prix d'achat", f"=B{R_ACHAT}", "Hypothèses"], fonts={2: GREEN}, fmts={2: EUR}); r += 1
 ecrire(r, ["Travaux (étage + RDC + toiture + façades), montant retenu sans sarking", "=Synthèse!F7", "Onglet Synthèse"], fonts={2: GREEN}, fmts={2: EUR}); r += 1
-ecrire(r, ["Postes hors budget (moyenne)", "=(Paramètres!B14+Paramètres!C14)/2", "Onglet Paramètres"], fonts={2: GREEN}, fmts={2: EUR}); r += 1
+ecrire(r, ["Postes hors budget (moyenne)", f"=(Paramètres!B{HORS_TOT}+Paramètres!C{HORS_TOT})/2", "Onglet Paramètres"], fonts={2: GREEN}, fmts={2: EUR}); r += 1
 ecrire(r, ["Extérieurs (piscine, jacuzzi, pergola, paysager…)", f"=B{R_EXT}", "Hypothèses"], fonts={2: GREEN}, fmts={2: EUR}); r += 1
 ecrire(r, ["COÛT TOTAL DU PROJET", f"=SUM(B{k0}:B{r - 1})", ""], fonts={1: BOLD, 2: BOLD}, fmts={2: EUR})
 R_COUT = r; r += 1
